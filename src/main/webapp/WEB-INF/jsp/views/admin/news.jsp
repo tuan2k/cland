@@ -48,7 +48,7 @@
 								<tr class="odd gradeX">
 									<td>${land.lid }</td>
 									<td>${land.lname }</td>
-									<td>${land.cat_id }</td>
+									<td>${land.category.cname }</td>
 									<td class="center">${ land.count_views}</td>
 									<td class="center text-center"><img
 										src="${pageContext.request.contextPath }/resources/admin/images/fff.png" />

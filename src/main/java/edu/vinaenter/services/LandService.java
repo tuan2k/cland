@@ -10,18 +10,28 @@ import edu.vinaenter.dao.LandDAO;
 import edu.vinaenter.models.Land;
 
 @Service
-public class LandService {
+public class LandService implements ICRUDService<Land> {
 	
 	@Autowired // DI
 	private LandDAO landDAO;
 	
-	public List<Land> getList() throws ParseException{
-		List<Land> list =landDAO.getList();
+	public List<Land> getList() {
+		List<Land> list=null;
+		try {
+			list = landDAO.getList();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return list;
 	}
 	
 	public Land getById(int id) {
 		return landDAO.getById(id);
+	}
+	
+	public List<Land> getByCategoryId(int id) {
+		return landDAO.getByCategoryId(id);
 	}
 	
 	public int save(Land land) {
@@ -30,6 +40,18 @@ public class LandService {
 	
 	public int deleteById(int id) {
 		return landDAO.deleteById(id);
+	}
+
+	@Override
+	public int edit(Land t) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public Land findOne(Land t) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@include file="/WEB-INF/jsp/components/taglib.jsp" %>
-<c:url value="resources/cland/" var="contentpath" scope="application"/>
+<c:url value="resources/cland" var="contentpath" scope="application"/>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 <head>
@@ -10,13 +10,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 	<!--Oswald Font -->
 	<link href='http://fonts.googleapis.com/css?family=Oswald:400,300,700' rel='stylesheet' type='text/css'/>
-	<link rel="stylesheet" type="text/css" href="${contentpath }/css/tooltipster.css" />
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/cland/css/tooltipster.css" />
 	<!-- home slider-->
-	<link href="${contentpath }/css/pgwslider.css" rel="stylesheet"/>
+	<link href="${pageContext.request.contextPath}/resources/cland/css/pgwslider.css" rel="stylesheet"/>
 	<!-- Font Awesome -->
-	<link rel="stylesheet" href="${contentpath }/css/font-awesome.min.css"/>
-	<link href="${contentpath }/style.css" rel="stylesheet" media="screen"/>
-	<link href="${contentpath }/responsive.css" rel="stylesheet" media="screen"/>
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/cland/css/font-awesome.min.css"/>
+	<link href="${pageContext.request.contextPath}/resources/cland/style.css" rel="stylesheet" media="screen"/>
+	<link href="${pageContext.request.contextPath}/resources/cland/responsive.css" rel="stylesheet" media="screen"/>
 </head>
 
 <body>
@@ -45,13 +45,13 @@
 
 	<script type="text/javascript"
 		src="http://code.jquery.com/jquery-1.7.0.min.js"></script>
-	<script type="text/javascript" src="${ contentpath }/js/jquery.tooltipster.min.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/cland/js/jquery.tooltipster.min.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$('.tooltip').tooltipster();
 		});
 	</script>
-	<script type="text/javascript" src="${contentpath }/js/selectnav.min.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/cland/js/selectnav.min.js"></script>
 	<script type="text/javascript">
 		selectnav('nav', {
 			label : '-Navigation-',
@@ -59,7 +59,7 @@
 			indent : '-'
 		});
 	</script>
-	<script src="${contentpath }/js/pgwslider.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/cland/js/pgwslider.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$('.pgwSlider').pgwSlider({
@@ -69,7 +69,8 @@
 			});
 		});
 	</script>
-	<script type="text/javascript" src="${contentpath }/js/placeholder_support_IE.js"></script>
+	
+	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/cland/js/placeholder_support_IE.js"></script>
 </body>
 </html>
 

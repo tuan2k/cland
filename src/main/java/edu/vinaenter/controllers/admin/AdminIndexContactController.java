@@ -1,6 +1,5 @@
 package edu.vinaenter.controllers.admin;
 
-import java.text.ParseException;
 import java.util.List;
 import java.util.Locale;
 
@@ -41,13 +40,8 @@ public class AdminIndexContactController {
 	public String index(Model model) {
 		logger.info("this is log");
 		List<Contact> listcontacts = null;
-		try {
-			listcontacts = contactService.getList();
-			model.addAttribute("listcontacts", listcontacts);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		listcontacts = contactService.getList();
+		model.addAttribute("listcontacts", listcontacts);
 		return "admin.contact.index";
 	}
 
@@ -63,7 +57,7 @@ public class AdminIndexContactController {
 		return "admin.contact.edit";
 	}
 	
-	@PostMapping("edit-model") // can't set name if the name is the same in form
+	@PostMapping("edit") // can't set name if the name is the same in form
 	public String edit(@Valid @ModelAttribute("contact") Contact contact, BindingResult rs
 			, RedirectAttributes msg) {
 		if (rs.hasErrors()) {
@@ -75,7 +69,6 @@ public class AdminIndexContactController {
 			msg.addFlashAttribute("msg",messageSource.getMessage("msg.success", null, Locale.ENGLISH));
 			return "redirect:/admin/contact/index";
 		}
-		System.out.println("sql erro");
 		return "admin.contact.edit";
 	}
 
@@ -93,14 +86,6 @@ public class AdminIndexContactController {
 			return "redirect:/admin/contact/index";
 		}
 		return "admin.contact.add";
-	}
-	
-	@GetMapping("detail/{id}")
-	public String detail(@PathVariable Integer id,Model model) {
-		System.out.println("detail id:"+id);
-		Contact contact = contactService.getById(id);
-		model.addAttribute("contact",contact);
-		return "admin.detail";
 	}
 	
 	@GetMapping("delete/{id}")

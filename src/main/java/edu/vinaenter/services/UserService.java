@@ -10,13 +10,19 @@ import edu.vinaenter.dao.UserDAO;
 import edu.vinaenter.models.User;
 
 @Service
-public class UserService {
+public class UserService implements ICRUDService<User> {
 	
 	@Autowired // DI
 	private UserDAO userDAO;
 	
-	public List<User> getList() throws ParseException{
-		List<User> list =userDAO.getList();
+	public List<User> getList() {
+		List<User> list=null;
+		try {
+			list = userDAO.getList();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return list;
 	}
 	
@@ -34,6 +40,11 @@ public class UserService {
 	
 	public int deleteById(int id) {
 		return userDAO.deleteById(id);
+	}
+
+	@Override
+	public User findOne(User t) {
+		return userDAO.findOne(t);
 	}
 
 }

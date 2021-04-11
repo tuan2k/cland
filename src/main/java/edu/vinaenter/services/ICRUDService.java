@@ -4,16 +4,16 @@ import java.util.List;
 
 public interface ICRUDService<T> {
 	
-	List<T> getALL();
+	List<T> getList();
 	
-	int update(T t);
+	int edit(T t);
 	
 	int save(T t);
 	
-	int delete(int id);
+	int deleteById(int id);
 	
 	T findOne(T t);
 	
-	T findById(int id);
+	T getById(int id);
 
 }

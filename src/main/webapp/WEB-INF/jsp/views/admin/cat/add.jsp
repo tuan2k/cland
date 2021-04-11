@@ -5,11 +5,34 @@
 
 	<div class="row">
 		<div class="col-md-12 panel-info">
-			<form action="${pageContext.request.contextPath}/admin/cat/add-model"
-				method="post">
-				Tên danh mục: <input name="cname" value="" type="text" /><br />
-				<input name="submit" value="Lưu" type="submit" />
-			</form>
+			<div class="content-box-header panel-heading">
+				<div class="panel-title ">Thêm danh mục</div>
+			</div>
+			<div class="content-box-large box-with-header">
+				<div>
+					<div class="row mb-10"></div>
+
+					<div class="row">
+						<div class="col-sm-6">
+							<form
+								action="${pageContext.request.contextPath}/admin/cat/add-model"
+								method="post">
+								<div class="form-group">
+									<label for="name">Tên danh mục: </label> <input type="text"
+										class="form-control" name="cname"
+										placeholder="Nhập tên danh mục">
+								</div>
+								<div class="col-sm-12">
+									<input type="submit" value="Thêm" class="btn btn-success" /> <input
+										type="reset" value="Nhập lại" class="btn btn-default" />
+								</div>
+
+							</form>
+						</div>
+					</div>
+
+				</div>
+			</div>
 		</div>
 	</div>
 	<!-- /.row col-size -->

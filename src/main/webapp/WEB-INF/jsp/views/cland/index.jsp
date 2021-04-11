@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@include file="/WEB-INF/jsp/components/taglib.jsp"%>
 <div class="clearfix slider">
 	<ul class="pgwSlider">
 		<li><img src="${ contentpath}/images/thumbs/megamind_07.jpg" alt="Paris, France"
@@ -17,100 +18,49 @@
 	</ul>
 </div>
 
+
 <div class="clearfix content">
 	<div class="content_title">
-		<h2>BÃ i viáº¿t má»i</h2>
+		<h2>Bài viết mới</h2>
 	</div>
 
+	<c:choose>
+	<c:when test="${not empty listlands }">
+	<c:forEach items="${listlands}" var="land">
 	<div class="clearfix single_content">
 		<div class="clearfix post_date floatleft">
 			<div class="date">
 				<h3>27</h3>
-				<p>ThÃ¡ng 3</p>
+				<p>Tháng 3</p>
 			</div>
 		</div>
 		<div class="clearfix post_detail">
 			<h2>
-				<a href="">Duis sed odio sit amet nibh vulputate cursus a sit
-					amet mauris. </a>
+				<a href="">${land.lname }</a>
 			</h2>
 			<div class="clearfix post-meta">
 				<p>
-					<span><i class="fa fa-clock-o"></i> Äá»a chá»: Pháº¡m
-						NhÆ° XÆ°Æ¡ng - ÄÃ  Náºµng</span> <span><i class="fa fa-folder"></i>
-						Diá»n tÃ­ch: 100m2</span>
+					<span><i class="fa fa-clock-o"></i>${land.address }</span> <span><i class="fa fa-folder"></i>
+						Diện tích: 100m2</span>
 				</p>
 			</div>
 			<div class="clearfix post_excerpt">
 				<img src="${ contentpath}/images/thumb.png" alt="" />
-				<p>Morbi accumsan ipsum velit. Nam nec tellus a odio tincidunt
-					auctor a ornare odio. Sed non mauris vitae erat consequat auctor eu
-					in elit. Class aptent taciti sociosqu ad litora torquent per
-					conubia nostra, per inceptos</p>
+				<p>${land.description }</p>
 			</div>
-			<a href="">Äá»c thÃªm</a>
+			<a href="${pageContext.request.contextPath }/single/${land.lid}">Xem thêm</a>
 		</div>
 	</div>
+	</c:forEach>
+	</c:when>
+	<c:otherwise>
+	empty news
+	</c:otherwise>
+	
+	</c:choose>
+	
 
-	<div class="clearfix single_content">
-		<div class="clearfix post_date floatleft">
-			<div class="date">
-				<h3>27</h3>
-				<p>ThÃ¡ng 3</p>
-			</div>
-		</div>
-		<div class="clearfix post_detail">
-			<h2>
-				<a href="">Duis sed odio sit amet nibh vulputate cursus a sit
-					amet mauris. </a>
-			</h2>
-			<div class="clearfix post-meta">
-				<p>
-					<span><i class="fa fa-clock-o"></i> Äá»a chá»: Pháº¡m
-						NhÆ° XÆ°Æ¡ng - ÄÃ  Náºµng</span> <span><i class="fa fa-folder"></i>
-						Diá»n tÃ­ch: 100m2</span>
-				</p>
-			</div>
-			<div class="clearfix post_excerpt">
-				<img src="${ contentpath}/images/thumb.png" alt="" />
-				<p>Morbi accumsan ipsum velit. Nam nec tellus a odio tincidunt
-					auctor a ornare odio. Sed non mauris vitae erat consequat auctor eu
-					in elit. Class aptent taciti sociosqu ad litora torquent per
-					conubia nostra, per inceptos</p>
-			</div>
-			<a href="">Äá»c thÃªm</a>
-		</div>
-	</div>
-
-	<div class="clearfix single_content">
-		<div class="clearfix post_date floatleft">
-			<div class="date">
-				<h3>27</h3>
-				<p>ThÃ¡ng 3</p>
-			</div>
-		</div>
-		<div class="clearfix post_detail">
-			<h2>
-				<a href="">Duis sed odio sit amet nibh vulputate cursus a sit
-					amet mauris. </a>
-			</h2>
-			<div class="clearfix post-meta">
-				<p>
-					<span><i class="fa fa-clock-o"></i> Äá»a chá»: Pháº¡m
-						NhÆ° XÆ°Æ¡ng - ÄÃ  Náºµng</span> <span><i class="fa fa-folder"></i>
-						Diá»n tÃ­ch: 100m2</span>
-				</p>
-			</div>
-			<div class="clearfix post_excerpt">
-				<img src="${ contentpath}/images/thumb.png" alt="" />
-				<p>Morbi accumsan ipsum velit. Nam nec tellus a odio tincidunt
-					auctor a ornare odio. Sed non mauris vitae erat consequat auctor eu
-					in elit. Class aptent taciti sociosqu ad litora torquent per
-					conubia nostra, per inceptos</p>
-			</div>
-			<a href="">Äá»c thÃªm</a>
-		</div>
-	</div>
+	
 </div>
 
 <div class="pagination">

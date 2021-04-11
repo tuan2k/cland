@@ -2,13 +2,14 @@
 	pageEncoding="UTF-8"%>
 	<%@include file="/WEB-INF/jsp/components/taglib.jsp"%>	
 <div class="col-md-10">
-
 	<div class="row">
 		<div class="col-md-12 panel-info">
 			<div class="content-box-header panel-heading">
-				<div class="panel-title ">Thêm danh mục</div>
+				<div class="panel-title ">Thêm đất đai</div>
 			</div>
 			<div class="content-box-large box-with-header">
+			
+				<form:form action="" method="post" enctype="multipart/form-data" modelAttribute="land">
 				<div>
 					<div class="row mb-10"></div>
 
@@ -20,11 +21,11 @@
 							</div>
 
 							<div class="form-group">
-								<label>Danh mục </label> <select class="form-control">
-									<option>Amsterdam</option>
-									<option>Atlanta</option>
-									<option>Baltimore</option>
-									<option>Boston</option>
+								<label>Danh mục </label> 
+								<select class="form-control" name="cid">
+									<c:forEach items="${listcats}" var="cat">
+									<option value="${ cat.cid }">${cat.cname }</option>
+									</c:forEach>
 								</select>
 							</div>
 							
@@ -55,8 +56,6 @@
 								 <input type="text" class="form-control" name="count_views">
 							</div>
 						</div>
-
-						<div class="col-sm-6"></div>
 					</div>
 
 					<hr>
@@ -68,6 +67,8 @@
 						</div>
 					</div>
 				</div>
+				</form:form>
+				
 			</div>
 			
 		</div>

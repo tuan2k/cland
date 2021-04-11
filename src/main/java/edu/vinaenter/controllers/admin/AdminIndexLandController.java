@@ -17,11 +17,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import edu.vinaenter.models.Category;
 import edu.vinaenter.models.Land;
+import edu.vinaenter.services.CategoryService;
 import edu.vinaenter.services.LandService;
+import edu.vinaenter.util.FileUtil;
 
 @Controller
 @RequestMapping("admin/land")
@@ -33,49 +35,71 @@ public class AdminIndexLandController {
 	@Autowired
 	private LandService landService;
 	
+	@Autowired
+	private CategoryService categoryService;
+	
 	@GetMapping("index")
-	public String index(Model model) {
+	public String index(Model model) throws ParseException {
 		List<Land> listlands = null;
-		try {
-			listlands = landService.getList();
-			model.addAttribute("listlands", listlands);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return "admin.news";
+		listlands = landService.getList();
+		if (listlands.size() == 0) System.out.println("null");
+		model.addAttribute("listlands", listlands);
+		return "admin.land.index";
 	}
 
 	@GetMapping("add")
-	public String add() {
-		return "admin.landadd";
+	public String add(Model model) {
+		List<Category> listcats = categoryService.getList();
+		model.addAttribute("listcats", listcats);
+		return "admin.land.add";
 	}
 
 	@PostMapping("add") // can't set name if the name is the same in form
-	public String add(@Valid @RequestParam("name") String name, @RequestParam("createDate") String createDate) {
-		System.out.println(name);
-		System.out.println(createDate);
-		return "admin.landadd";
-	}
-
-	@PostMapping("add-model") // can't set name if the name is the same in form
-	public String add(@Valid @ModelAttribute("user") Land land, BindingResult rs
+	public String add(@Valid @ModelAttribute("land") Land land,@ModelAttribute("category") Category cat , BindingResult rs
 			, RedirectAttributes msg) {
 		// set name model attribute to get in add.jsp
 		// insert into db
-		//String fileName = FileUtil.upload(football.getPictures());
+		Category c = categoryService.getById(cat.getCid());
+		land.setCategory(c);
+		String fileName = FileUtil.upload(land.getPicture());
 		// get fileName to insert db
-		//System.out.println(fileName);
+		land.setPictures(fileName);
 		if (rs.hasErrors()) {
 			System.out.println("Có lỗi dữ liệu");
-			return "add";
+			return "admin.land.add";
 		}
 		int save = landService.save(land);
 		if (save > 0) {
 			msg.addFlashAttribute("msg",messageSource.getMessage("msg.success", null, Locale.ENGLISH));
 			return "redirect:/admin/land/index";
 		}
-		return "admin.landadd";
+		return "admin.land.add";
+	}
+	
+	@GetMapping("edit/{id}")
+	public String edit(@PathVariable Integer id, Model model) {
+		Land land = landService.getById(id);
+		model.addAttribute("land",land);
+		return "admin.land.edit";
+	}
+	
+	@PostMapping("edit") // can't set name if the name is the same in form
+	public String edit(@Valid @ModelAttribute("land") Land land, BindingResult rs
+			, RedirectAttributes msg) {
+		if (rs.hasErrors()) {
+			System.out.println("Có lỗi dữ liệu");
+			return "admin.land.edit";
+		}
+		Land l = landService.findOne(land);
+		int save = 0;
+		if (l == null) {
+			save = landService.edit(land);
+		}
+		if (save > 0) {
+			msg.addFlashAttribute("msg",messageSource.getMessage("msg.success", null, Locale.ENGLISH));
+			return "redirect:/admin/land/index";
+		}
+		return "admin.land.edit";
 	}
 	
 	@GetMapping("detail/{id}")
@@ -94,7 +118,7 @@ public class AdminIndexLandController {
 			msg.addFlashAttribute("msg",messageSource.getMessage("msg.success", null, Locale.ENGLISH));
 			return "redirect:/admin/land/index";
 		}
-		return "admin.landindex";
+		return "admin.land.index";
 	}
 
 }

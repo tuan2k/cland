@@ -1,11 +1,15 @@
 package edu.vinaenter.dao;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.stereotype.Repository;
 
 import edu.vinaenter.models.Category;
@@ -40,6 +44,24 @@ public class CatDAO {
 	public int edit(Category cat) {
 		String sql = "update categories set cname= ? where cid = ?";
 		return jdbcTemplate.update(sql, cat.getCname(),cat.getCid());
+	}
+	
+	public Category findOne(Category t) {
+		String sql = "select * from categories where cname =?";
+		return jdbcTemplate.query(sql, new ResultSetExtractor<Category>(){
+			@Override
+			public Category extractData(ResultSet rs) throws SQLException, DataAccessException {
+				// TODO Auto-generated method stub
+				Category c = new Category();
+				if(rs.next()) {
+					c.setCid(rs.getInt("cid"));
+					c.setCname(rs.getString("cname"));
+				}else {
+					c =  null;
+				}
+				return c;
+			}
+		},t.getCname());
 	}
 
 }

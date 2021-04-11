@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <div class="clearfix content">
 
+	<p>${msg }</p>
 	<div class="contact_us">
 
 		<h1>Liên hệ với chúng tôi</h1>
@@ -12,18 +13,18 @@
 				href="http://vinaenter.edu.vn" title="">www.vinaenter.edu.vn</a>
 		</p>
 
-		<form>
+		<form action="" method="post">
 			<p>
-				<input type="text" class="wpcf7-text" placeholder="Họ tên *" />
+				<input type="text" class="wpcf7-text" placeholder="Họ tên *" name="fullname"/>
 			</p>
 			<p>
-				<input type="text" class="wpcf7-email" placeholder="Email *" />
+				<input type="text" class="wpcf7-email" placeholder="Email *" name="email" />
 			</p>
 			<p>
-				<input type="text" class="wpcf7-text" placeholder="Chủ đề *" />
+				<input type="text" class="wpcf7-text" placeholder="Chủ đề *" name="subject"/>
 			</p>
 			<p>
-				<textarea class="wpcf7-textarea" placeholder="Nội dung *"></textarea>
+				<textarea class="wpcf7-textarea" placeholder="Nội dung *" name="content"></textarea>
 			</p>
 			<p>
 				<input type="Submit" class="wpcf7-submit" value="Gửi liên hệ" />

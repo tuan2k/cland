@@ -1,6 +1,5 @@
 package edu.vinaenter.controllers.admin;
 
-import java.text.ParseException;
 import java.util.List;
 import java.util.Locale;
 
@@ -43,14 +42,9 @@ public class AdminIndexCatController {
 	public String index(Model model) {
 		logger.info("this is log");
 		List<Category> listcats = null;
-		try {
-			listcats = catService.getList();
-			System.out.println(listcats.get(0).getCname());
-			model.addAttribute("listcats", listcats);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		listcats = catService.getList();
+		System.out.println(listcats.get(0).getCname());
+		model.addAttribute("listcats", listcats);
 		return "admin.catindex";
 	}
 
@@ -66,19 +60,25 @@ public class AdminIndexCatController {
 		return "admin.catedit";
 	}
 	
-	@PostMapping("edit-model") // can't set name if the name is the same in form
+	@PostMapping("edit") // can't set name if the name is the same in form
 	public String edit(@Valid @ModelAttribute("category") Category cat, BindingResult rs
 			, RedirectAttributes msg) {
 		if (rs.hasErrors()) {
 			System.out.println("Có lỗi dữ liệu");
 			return "admin.catedit";
 		}
-		int save = catService.edit(cat);
+		Category c = null;
+		int save = 0;
+		c = catService.findOne(cat);
+		if (c == null) {
+			save = catService.edit(cat);
+		}
 		if (save > 0) {
 			msg.addFlashAttribute("msg",messageSource.getMessage("msg.success", null, Locale.ENGLISH));
 			return "redirect:/admin/cat/index";
 		}
-		return "admin.catedit";
+		msg.addFlashAttribute("msg",messageSource.getMessage("msg.faile", null, Locale.ENGLISH));
+		return "admin.catindex";
 	}
 
 	
@@ -94,22 +94,19 @@ public class AdminIndexCatController {
 			, RedirectAttributes msg) {
 		if (rs.hasErrors()) {
 			System.out.println("Có lỗi dữ liệu");
-			return "admin.useradd";
+			return "admin.catadd";
 		}
-		int save = catService.save(cat);
+		Category c = null;
+		int save = 0;
+		c = catService.findOne(cat);
+		if (c == null) {
+			save = catService.save(cat);
+		}
 		if (save > 0) {
 			msg.addFlashAttribute("msg",messageSource.getMessage("msg.success", null, Locale.ENGLISH));
 			return "redirect:/admin/cat/index";
 		}
 		return "admin.catadd";
-	}
-	
-	@GetMapping("detail/{id}")
-	public String detail(@PathVariable Integer id,Model model) {
-		System.out.println("detail id:"+id);
-		Category cat = catService.getById(id);
-		model.addAttribute("user",cat);
-		return "admin.detail";
 	}
 	
 	@GetMapping("delete/{id}")
@@ -118,7 +115,7 @@ public class AdminIndexCatController {
 		int delete = catService.deleteById(id);
 		if (delete > 0) {
 			msg.addFlashAttribute("msg",messageSource.getMessage("msg.success", null, Locale.ENGLISH));
-			return "redirect:/admin/user/index";
+			return "redirect:/admin/cat/index";
 		}
 		return "admin.catindex";
 	}

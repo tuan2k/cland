@@ -10,13 +10,19 @@ import edu.vinaenter.dao.ContactDAO;
 import edu.vinaenter.models.Contact;
 
 @Repository
-public class ContactService {
+public class ContactService implements ICRUDService<Contact> {
 
 	@Autowired
 	private ContactDAO contactDAO;
 
-	public List<Contact> getList() throws ParseException {
-		List<Contact> list = contactDAO.getList();
+	public List<Contact> getList() {
+		List<Contact> list=null;
+		try {
+			list = contactDAO.getList();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return list;
 	}
 
@@ -34,5 +40,11 @@ public class ContactService {
 
 	public int deleteById(int id) {
 		return contactDAO.deleteById(id);
+	}
+
+	@Override
+	public Contact findOne(Contact t) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

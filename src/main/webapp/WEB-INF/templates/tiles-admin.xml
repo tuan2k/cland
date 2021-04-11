@@ -74,4 +74,20 @@
     <put-attribute name="content" value="/WEB-INF/jsp/views/admin/contact/edit.jsp" />
   </definition>
   
+  <definition name="admin.land.index" extends="template.admin">
+    <put-attribute name="content" value="/WEB-INF/jsp/views/admin/land/index.jsp" />
+  </definition>
+  
+   <definition name="admin.land.add" extends="template.admin">
+    <put-attribute name="content" value="/WEB-INF/jsp/views/admin/land/add.jsp" />
+  </definition>
+  
+  <definition name="admin.land.edit" extends="template.admin">
+    <put-attribute name="content" value="/WEB-INF/jsp/views/admin/land/edit.jsp" />
+  </definition>
+  
+  <definition name="admin.auth.login" extends="template.login">
+    <put-attribute name="content" value="/WEB-INF/jsp/views/admin/auth/login.jsp" />
+  </definition>
+  
 </tiles-definitions>

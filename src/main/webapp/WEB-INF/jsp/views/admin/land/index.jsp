@@ -12,7 +12,7 @@
 		<hr>
 		<div class="row">
 			<div class="col-md-8">
-				<a href="add.html" class="btn btn-success"><span
+				<a href="add" class="btn btn-success"><span
 					class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;Thêm</a>
 
 			</div>
@@ -48,14 +48,15 @@
 								<tr class="odd gradeX">
 									<td>${land.lid }</td>
 									<td>${land.lname }</td>
-									<td>${land.cat_id }</td>
+									<td>${land.category.cname }</td>
 									<td class="center">${ land.count_views}</td>
 									<td class="center text-center"><img
 										src="${pageContext.request.contextPath }/resources/admin/images/fff.png" />
 									</td>
-									<td class="center text-center"><a href="" title=""
+									<td class="center text-center"><a href="${pageContext.request.contextPath }/admin/land/edit/${land.lid}" title=""
 										class="btn btn-primary"><span
-											class="glyphicon glyphicon-pencil "></span> Sửa</a> <a href=""
+											class="glyphicon glyphicon-pencil "></span> Sửa</a> 
+									<a href="${pageContext.request.contextPath }/admin/land/delete/${land.lid}"
 										title="" class="btn btn-danger"><span
 											class="glyphicon glyphicon-trash"></span> Xóa</a></td>
 								</tr>

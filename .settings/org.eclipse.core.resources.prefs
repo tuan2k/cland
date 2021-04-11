@@ -3,6 +3,7 @@ encoding//src/main/java/edu/vinaenter/controllers/admin/AdminIndexCatController.
 encoding//src/main/java/edu/vinaenter/controllers/admin/AdminIndexContactController.java=UTF-8
 encoding//src/main/java/edu/vinaenter/controllers/admin/AdminIndexLandController.java=UTF-8
 encoding//src/main/java/edu/vinaenter/controllers/admin/AdminIndexUserController.java=UTF-8
+encoding//src/main/java/edu/vinaenter/controllers/cland/ClandController.java=UTF-8
 encoding//src/main/resources/messages/messages.properties=UTF-8
 encoding//src/main/webapp/WEB-INF/jsp/views/admin/add.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/jsp/views/admin/cat.jsp=UTF-8
