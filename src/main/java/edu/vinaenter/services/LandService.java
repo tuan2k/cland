@@ -26,6 +26,17 @@ public class LandService implements ICRUDService<Land> {
 		return list;
 	}
 	
+	public List<Land> getAll(int offset,int currentpage){
+		List<Land> list=null;
+		try {
+			list = landDAO.getAll(offset, currentpage);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
 	public Land getById(int id) {
 		return landDAO.getById(id);
 	}
@@ -54,4 +65,7 @@ public class LandService implements ICRUDService<Land> {
 		return null;
 	}
 
+	public int totalRow() {
+		return landDAO.totalRow();
+	}
 }

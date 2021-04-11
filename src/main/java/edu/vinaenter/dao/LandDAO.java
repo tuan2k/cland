@@ -35,7 +35,7 @@ public class LandDAO {
 					land.setLname(rs.getString("lname"));
 					land.setAddress(rs.getString("address"));
 					land.setDescription(rs.getString("description"));
-					land.setPictures(rs.getString("picture"));
+					land.setPicture(rs.getString("picture"));
 					land.setCount_views(rs.getInt("count_views"));
 					land.setDate(rs.getString("date_create"));
 					land.setArea(rs.getInt("area"));
@@ -51,6 +51,42 @@ public class LandDAO {
 		});	
 				
 	}
+	
+	public List<Land> getAll(int offset, int currentpage) throws ParseException {
+		String sql = "SELECT * FROM lands l INNER JOIN categories c on l.cid = c.cid limit ?,?";
+		return jdbcTemplate.query(sql,new ResultSetExtractor<List<Land>>() {
+			@Override
+			public List<Land> extractData(ResultSet rs) throws SQLException, DataAccessException {
+				// TODO Auto-generated method stub
+				List<Land> listlands = new ArrayList<Land>();
+				while(rs.next()) {
+					Land land  = new Land();
+					Category cat = new Category();
+					land.setLid(rs.getInt("lid"));;
+					land.setLname(rs.getString("lname"));
+					land.setAddress(rs.getString("address"));
+					land.setDescription(rs.getString("description"));
+					land.setPicture(rs.getString("picture"));
+					land.setCount_views(rs.getInt("count_views"));
+					land.setDate(rs.getString("date_create"));
+					land.setArea(rs.getInt("area"));
+					cat.setCid(rs.getInt("cid"));
+					cat.setCname(rs.getString("cname"));
+					land.setCategory(cat);
+					listlands.add(land);
+					land = null;
+					cat = null;
+				}
+				return listlands;
+			}
+		},offset,currentpage);	
+				
+	}
+	
+	public int totalRow() {
+		String sql = "select count(*) as count from lands l  INNER JOIN categories c on l.cid= c.cid";
+		return jdbcTemplate.queryForObject(sql, Integer.class);
+	}
 
 	public Land getById(int id) {
 		String sql = "SELECT * FROM lands l INNER JOIN categories c on l.cid = c.cid where lid = ?";
@@ -65,7 +101,7 @@ public class LandDAO {
 					land.setLname(rs.getString("lname"));
 					land.setAddress(rs.getString("address"));
 					land.setDescription(rs.getString("description"));
-					land.setPictures(rs.getString("picture"));
+					land.setPicture(rs.getString("picture"));
 					land.setCount_views(rs.getInt("count_views"));
 					land.setDate(rs.getString("date_create"));
 					land.setArea(rs.getInt("area"));
@@ -93,7 +129,7 @@ public class LandDAO {
 					land.setLname(rs.getString("lname"));
 					land.setAddress(rs.getString("address"));
 					land.setDescription(rs.getString("description"));
-					land.setPictures(rs.getString("picture"));
+					land.setPicture(rs.getString("picture"));
 					land.setCount_views(rs.getInt("count_views"));
 					land.setDate(rs.getString("date_create"));
 					land.setArea(rs.getInt("area"));
@@ -111,7 +147,7 @@ public class LandDAO {
 
 	public int save(Land land) {
 		String sql = "insert into lands(lname,description,cid,picture,area,address,count_views) values (?,?,?,?,?,?,?)";
-		return jdbcTemplate.update(sql,land.getLname(), land.getDescription(),land.getCategory().getCid(),land.getPictures()
+		return jdbcTemplate.update(sql,land.getLname(), land.getDescription(),land.getCategory().getCid(),land.getPicture()
 				,land.getArea(), land.getAddress(),land.getCount_views());
 	}
 	

@@ -36,7 +36,7 @@
 							
 							<div class="form-group">
 								<label>Thêm hình ảnh</label>
-								<input type="file" class="btn btn-default" name="picture">
+								<input type="file" class="btn btn-default" name="image">
 								<p class="help-block">
 									<em>Định dạng: jpg, png, jpeg,...</em>
 								</p>

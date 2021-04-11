@@ -3,17 +3,20 @@ package edu.vinaenter.util;
 import java.io.File;
 import java.io.IOException;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.web.multipart.MultipartFile;
+
 import edu.vinaenter.contant.GlobalContant;
 
 public class FileUtil {
 
 	// create methods to upload file ( create folder)
-	public static String upload(MultipartFile file) {
+	public static String upload(MultipartFile file,HttpServletRequest req) {
 		if (file != null) {
 			if (!GlobalContant.EMPTY_VALUE.equals(file.getOriginalFilename())) {
-				String userDir = System.getenv(GlobalContant.PATH_PROJECT);
+				String userDir = req.getServletContext().getRealPath("") + File.separator + "WEB-INF/resources";
 				String dirPath = userDir + File.separator + GlobalContant.DIR_UPLOAD;
 				File saveDir = new File(dirPath);
 				if (!saveDir.exists()) {
@@ -33,7 +36,7 @@ public class FileUtil {
 		}
 		return GlobalContant.EMPTY_VALUE;
 	}
-
+	
 	public static String rename(String fileName) {
 		if (!GlobalContant.EMPTY_VALUE.equals(fileName)) {
 			StringBuilder sb = new StringBuilder();

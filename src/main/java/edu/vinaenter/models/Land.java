@@ -1,7 +1,5 @@
 package edu.vinaenter.models;
 
-import org.springframework.web.multipart.MultipartFile;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,9 +19,8 @@ public class Land {
 	
 	private Category category;
 	
-	private MultipartFile picture;
 	
-	private String pictures;
+	private String picture;
 	
 	private int area;
 	
@@ -31,7 +28,7 @@ public class Land {
 	
 	private int count_views;
 
-	public Land(int id, String name, String description, String date, Category category, MultipartFile picture, int area,
+	public Land(int id, String name, String description, String date, Category category, String picture, int area,
 			String address, int count_views) {
 		super();
 		this.lid = id;

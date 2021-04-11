@@ -12,7 +12,7 @@
 		<hr>
 		<div class="row">
 			<div class="col-md-8">
-				<a href="add" class="btn btn-success"><span
+				<a href="${pageContext.request.contextPath }/admin/land/add" class="btn btn-success"><span
 					class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;Thêm</a>
 
 			</div>
@@ -51,7 +51,7 @@
 									<td>${land.category.cname }</td>
 									<td class="center">${ land.count_views}</td>
 									<td class="center text-center"><img
-										src="${pageContext.request.contextPath }/resources/admin/images/fff.png" />
+										src="${ pageContext.request.contextPath}/resources/files/${land.picture}" />
 									</td>
 									<td class="center text-center"><a href="${pageContext.request.contextPath }/admin/land/edit/${land.lid}" title=""
 										class="btn btn-primary"><span
@@ -71,19 +71,21 @@
 				</c:choose>
 
 				<!-- Pagination -->
+				<c:if test="${not empty totalPage}">
 				<nav class="text-center" aria-label="...">
 					<ul class="pagination">
-						<li class="disabled"><a href="#" aria-label="Previous"><span
+						<li class="disabled"><a href="${pageContext.request.contextPath }/admin/land/index/${i-1}" aria-label="Previous"><span
 								aria-hidden="true">«</span></a></li>
-						<li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-						<li><a href="#">2</a></li>
-						<li><a href="#">3</a></li>
-						<li><a href="#">4</a></li>
-						<li><a href="#">5</a></li>
-						<li><a href="#" aria-label="Next"><span
+						<c:forEach begin="1" end="${ totalPage}" var="i">
+						<li class='<c:if test="${ i == currenPage }">active</c:if>'>
+						<a href="${pageContext.request.contextPath }/admin/land/index/${i}">${i } 
+						<span class="sr-only">(current)</span></a></li>
+						</c:forEach>
+						<li><a href="${pageContext.request.contextPath }/admin/land/index/${i+1}" aria-label="Next"><span
 								aria-hidden="true">»</span></a></li>
 					</ul>
 				</nav>
+				</c:if>
 				<!-- /.pagination -->
 
 			</div>

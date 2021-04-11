@@ -7,5 +7,7 @@ public class GlobalContant {
 	public static final String EMPTY_VALUE = "";
 
 	public static final String PATH_PROJECT = "PATH_PROJECT";
+	
+	public static final int TOTAL_PAGE = 3;
 
 }
