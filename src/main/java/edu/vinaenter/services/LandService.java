@@ -68,4 +68,8 @@ public class LandService implements ICRUDService<Land> {
 	public int totalRow() {
 		return landDAO.totalRow();
 	}
+
+	public List<Land> getBySearch(String search) {
+		return landDAO.getBySearch(search);
+	}
 }

@@ -16,14 +16,17 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import edu.vinaenter.contant.GlobalContant;
 import edu.vinaenter.models.Category;
 import edu.vinaenter.models.Contact;
 import edu.vinaenter.models.Land;
 import edu.vinaenter.services.CategoryService;
 import edu.vinaenter.services.ContactService;
 import edu.vinaenter.services.LandService;
+import edu.vinaenter.util.PageUtil;
 
 @Controller
 @RequestMapping("")
@@ -42,14 +45,32 @@ public class ClandController {
 	MessageSource messageSource;
 	
 	
-	@GetMapping("/")
-	public String index(Model model) {
-		List<Land> listlands = new ArrayList<Land>();
-		listlands = landService.getList();
+	@GetMapping({"/","/{page}"})
+	public String index(Model model,@PathVariable(required = false) Integer page) {
+		if ( page == null) {
+			page = 1;
+		}
+		List<Land> test = null;
+		test = landService.getAll(PageUtil.getOffset(page), GlobalContant.TOTAL_PAGE);
+		int totalPage = PageUtil.getTotalRow(landService.totalRow());
 		List<Category> listcats = new ArrayList<Category>();
 		listcats = catService.getList();
 		model.addAttribute("listcats",listcats);
-		model.addAttribute("listlands",listlands);
+		model.addAttribute("listlands", test);
+		model.addAttribute("currentPage",page);
+		model.addAttribute("totalPage",totalPage);
+		return "cland.index";
+	}
+	
+	@GetMapping("/search")
+	public String index(Model model,@RequestParam("search") String search) {
+		
+		List<Land> listlands = new ArrayList<Land>();
+		listlands = landService.getBySearch(search);
+		List<Category> listcats = new ArrayList<Category>();
+		listcats = catService.getList();
+		model.addAttribute("listcats",listcats);
+		model.addAttribute("listlands", listlands);
 		return "cland.index";
 	}
 	

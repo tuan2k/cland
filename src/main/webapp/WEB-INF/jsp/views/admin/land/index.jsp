@@ -74,15 +74,38 @@
 				<c:if test="${not empty totalPage}">
 				<nav class="text-center" aria-label="...">
 					<ul class="pagination">
-						<li class="disabled"><a href="${pageContext.request.contextPath }/admin/land/index/${i-1}" aria-label="Previous"><span
+						<c:set value="0" var="k"></c:set>
+						<c:forEach begin="1" end="${totalPage}" var="i">
+						<c:if test="${ k == 0}">
+						<c:choose>
+						<c:when test="${currentPage > 1 }">
+						<li><a href="${pageContext.request.contextPath }/admin/land/index/${currentPage-1}" aria-label="Previous"><span
 								aria-hidden="true">«</span></a></li>
-						<c:forEach begin="1" end="${ totalPage}" var="i">
-						<li class='<c:if test="${ i == currenPage }">active</c:if>'>
+						</c:when>
+						<c:otherwise>
+						<li><a href="${pageContext.request.contextPath }/admin/land/index/1" aria-label="Previous"><span
+								aria-hidden="true">«</span></a></li>
+						</c:otherwise>
+						</c:choose>
+						<c:set value="1" var="k"></c:set>
+						</c:if>
+						<li class="<c:if test="${ i == currentPage }">active</c:if>">
 						<a href="${pageContext.request.contextPath }/admin/land/index/${i}">${i } 
 						<span class="sr-only">(current)</span></a></li>
-						</c:forEach>
-						<li><a href="${pageContext.request.contextPath }/admin/land/index/${i+1}" aria-label="Next"><span
+						<c:if test="${ i == totalPage}">
+						<c:choose>
+						<c:when test="${currentPage < totalPage }">
+						<li><a href="${pageContext.request.contextPath }/admin/land/index/${currentPage+1}" aria-label="Next"><span
 								aria-hidden="true">»</span></a></li>
+						</c:when>
+						<c:otherwise>
+						<li><a href="${pageContext.request.contextPath }/admin/land/index/${totalPage}" aria-label="Next"><span
+								aria-hidden="true">»</span></a></li>
+						</c:otherwise>
+						</c:choose>
+						</c:if>
+						</c:forEach>
+						
 					</ul>
 				</nav>
 				</c:if>

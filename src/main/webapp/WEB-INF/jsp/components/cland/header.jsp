@@ -7,8 +7,8 @@
 						<a href="index.html"><h1><span>C</span>Land</h1></a>
 					</div>
 					<div class="clearfix search floatright">
-						<form>
-							<input type="text" placeholder="Search"/>
+						<form action="${pageContext.request.contextPath}/search">
+							<input type="text" placeholder="Search" name="search"/>
 							<input type="submit" />
 						</form>
 					</div>

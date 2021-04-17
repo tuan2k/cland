@@ -156,4 +156,35 @@ public class LandDAO {
 		return jdbcTemplate.update(sql, id);
 	}
 
+	public List<Land> getBySearch(String search) {
+		String sql = "SELECT * FROM lands l INNER JOIN categories c on l.cid = c.cid where l.lname like '%"+search+"%'"
+				+ " or l.description like '%"+search+"%'";
+		return jdbcTemplate.query(sql,new ResultSetExtractor<List<Land>>() {
+			@Override
+			public List<Land> extractData(ResultSet rs) throws SQLException, DataAccessException {
+				// TODO Auto-generated method stub
+				List<Land> listlands = new ArrayList<Land>();
+				while(rs.next()) {
+					Land land  = new Land();
+					Category cat = new Category();
+					land.setLid(rs.getInt("lid"));;
+					land.setLname(rs.getString("lname"));
+					land.setAddress(rs.getString("address"));
+					land.setDescription(rs.getString("description"));
+					land.setPicture(rs.getString("picture"));
+					land.setCount_views(rs.getInt("count_views"));
+					land.setDate(rs.getString("date_create"));
+					land.setArea(rs.getInt("area"));
+					cat.setCid(rs.getInt("cid"));
+					cat.setCname(rs.getString("cname"));
+					land.setCategory(cat);
+					listlands.add(land);
+					land = null;
+					cat = null;
+				}
+				return listlands;
+			}
+		});	
+	}
+
 }
