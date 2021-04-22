@@ -90,4 +90,8 @@
     <put-attribute name="content" value="/WEB-INF/jsp/views/admin/auth/login.jsp" />
   </definition>
   
+   <definition name="error.403" extends="template.login">
+    <put-attribute name="content" value="/WEB-INF/jsp/views/error/403.jsp" />
+  </definition>
+  
 </tiles-definitions>

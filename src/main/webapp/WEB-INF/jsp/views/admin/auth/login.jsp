@@ -5,7 +5,7 @@
 		<div class="col-md-4 col-md-offset-4">
 			<div class="login-wrapper">
 				<div class="box">
-				<form action="${pageContext.request.contextPath }/admin/auth/login" method="post">
+				<form action="${pageContext.request.contextPath }/auth/login" method="post">
 					<div class="content-wrap">
 						<img width="100px" height="100px" class="img-circle"
 							src="${pageContext.request.contextPath }/resources/admin/images/icon-180x180.png">
