@@ -46,7 +46,7 @@ public class UserDAO {
 	}
 
 	public User findOne(User t) {
-		String sql = "select * from users where username =? and password= ?";
+		String sql = "select * from users where username =?";
 		return jdbcTemplate.query(sql, new ResultSetExtractor<User>(){
 			@Override
 			public User extractData(ResultSet rs) throws SQLException, DataAccessException {
@@ -63,6 +63,6 @@ public class UserDAO {
 				}
 				return u;
 			}
-		},t.getUsername(),t.getPassword());
+		},t.getUsername());
 	}
 }

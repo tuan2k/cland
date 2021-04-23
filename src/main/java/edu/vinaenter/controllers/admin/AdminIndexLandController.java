@@ -85,7 +85,9 @@ public class AdminIndexLandController {
 			msg.addFlashAttribute("msg",messageSource.getMessage("msg.success", null, Locale.ENGLISH));
 			return "redirect:/admin/land/index";
 		}
-		return "admin.land.add";
+		System.out.println("faile ne");
+		msg.addFlashAttribute("msg",messageSource.getMessage("msg.faile", null, Locale.ENGLISH));
+		return "redirect:/admin/land/add";
 	}
 	
 	@GetMapping("edit/{id}")

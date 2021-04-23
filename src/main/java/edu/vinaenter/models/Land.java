@@ -1,5 +1,8 @@
 package edu.vinaenter.models;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,19 +14,24 @@ public class Land {
 	
 	private int lid;
 	
+	@NotEmpty
+	@Size(min =3,max =30)
 	private String lname;
 	
+	@NotEmpty
+	@Size(min = 10)
 	private String description;
 	
 	private String date;
 	
 	private Category category;
 	
-	
 	private String picture;
 	
 	private int area;
 	
+	@NotEmpty
+	@Size(min = 10, max = 100)
 	private String address;
 	
 	private int count_views;

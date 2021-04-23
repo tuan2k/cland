@@ -88,10 +88,17 @@
 						<c:set value="1" var="k"></c:set>
 					</c:if>
 					<li class="<c:if test="${ i == currentPage }">active</c:if>">
-						<a
+					<c:if test="${i != currentPage }">
+					<a
+						href="${pageContext.request.contextPath }/${i}">${i }
+					</a>
+					</c:if>
+					<c:if test="${i == currentPage }">
+					<a
 						href="${pageContext.request.contextPath }/${i}">${i }
 							<span class="sr-only">(current)</span>
 					</a>
+					</c:if>
 					</li>
 					<c:if test="${ i == totalPage}">
 						<c:choose>

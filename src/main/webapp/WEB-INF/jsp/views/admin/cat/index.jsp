@@ -8,6 +8,12 @@
 			<div class="panel-heading">
 				<div class="panel-title ">Quản lý danh mục</div>
 			</div>
+			<br> <br>
+			<c:if test="${not empty msg }">
+			<div class="alert alert-success" role="alert">
+			${ msg}
+			</div>
+			</c:if>
 		</div>
 		<hr>
 		<div class="row">

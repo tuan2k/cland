@@ -1,13 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@include file="/WEB-INF/jsp/components/taglib.jsp"%>
-<p>${ msg}</p>
 <div class="col-md-10">
 	<div class="content-box-large">
 		<div class="row">
 			<div class="panel-heading">
 				<div class="panel-title ">Quản lý đất đai</div>
 			</div>
+			<br> <br>
+			<c:if test="${not empty msg }">
+			<div class="alert alert-success" role="alert">
+			${ msg}
+			</div>
+			</c:if>
 		</div>
 		<hr>
 		<div class="row">

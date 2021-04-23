@@ -85,7 +85,8 @@ public class AdminIndexContactController {
 			msg.addFlashAttribute("msg",messageSource.getMessage("msg.success", null, Locale.ENGLISH));
 			return "redirect:/admin/contact/index";
 		}
-		return "admin.contact.add";
+		msg.addFlashAttribute("msg",messageSource.getMessage("msg.exist", null, Locale.ENGLISH));
+		return "redirect:/admin/contact/add";
 	}
 	
 	@GetMapping("delete/{id}")

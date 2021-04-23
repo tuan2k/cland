@@ -77,8 +77,8 @@ public class AdminIndexCatController {
 			msg.addFlashAttribute("msg",messageSource.getMessage("msg.success", null, Locale.ENGLISH));
 			return "redirect:/admin/cat/index";
 		}
-		msg.addFlashAttribute("msg",messageSource.getMessage("msg.faile", null, Locale.ENGLISH));
-		return "admin.catindex";
+		msg.addFlashAttribute("msg",messageSource.getMessage("msg.exist", null, Locale.ENGLISH));
+		return "redirect:/admin/cat/edit";
 	}
 
 	
@@ -106,7 +106,8 @@ public class AdminIndexCatController {
 			msg.addFlashAttribute("msg",messageSource.getMessage("msg.success", null, Locale.ENGLISH));
 			return "redirect:/admin/cat/index";
 		}
-		return "admin.catadd";
+		msg.addFlashAttribute("msg",messageSource.getMessage("msg.exist", null, Locale.ENGLISH));
+		return "redirect:/admin/cat/add";
 	}
 	
 	@GetMapping("delete/{id}")

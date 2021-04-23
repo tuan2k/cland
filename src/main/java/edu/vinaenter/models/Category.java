@@ -1,5 +1,8 @@
 package edu.vinaenter.models;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,6 +14,8 @@ public class Category {
 
 	private int cid;
 
+	@NotEmpty()
+	@Size(min=3, max =30, message = "name category min=3 and max = 30")
 	private String cname;
 
 	public Category(int id, String name) {

@@ -7,9 +7,16 @@
 			<div class="content-box-header panel-heading">
 				<div class="panel-title ">Thêm đất đai</div>
 			</div>
+			
+			<c:if test="${not empty msg }">
+				<div class="alert alert-danger" role="alert">${msg }</div>
+			</c:if>
+			
 			<div class="content-box-large box-with-header">
 			
-				<form:form action="" method="post" enctype="multipart/form-data" modelAttribute="land">
+				<form:errors path="land.*" cssStyle="color:red"
+						cssClass="error"></form:errors>
+				<form:form action="${pageContext.request.contextPath}/admin/land/add" method="post" enctype="multipart/form-data" modelAttribute="land">
 				<div>
 					<div class="row mb-10"></div>
 

@@ -67,7 +67,8 @@ public class AdminIndexUserController {
 			msg.addFlashAttribute("msg",messageSource.getMessage("msg.success", null, Locale.ENGLISH));
 			return "redirect:/admin/user/index";
 		}
-		return "admin.useradd";
+		msg.addFlashAttribute("msg",messageSource.getMessage("msg.exist", null, Locale.ENGLISH));
+		return "redirect:/admin/user/add";
 	}
 
 	@GetMapping("edit/{id}")

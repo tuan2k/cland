@@ -5,11 +5,7 @@ encoding//src/main/java/edu/vinaenter/controllers/admin/AdminIndexLandController
 encoding//src/main/java/edu/vinaenter/controllers/admin/AdminIndexUserController.java=UTF-8
 encoding//src/main/java/edu/vinaenter/controllers/cland/ClandController.java=UTF-8
 encoding//src/main/resources/messages/messages.properties=UTF-8
-encoding//src/main/webapp/WEB-INF/jsp/views/admin/add.jsp=UTF-8
-encoding//src/main/webapp/WEB-INF/jsp/views/admin/cat.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/jsp/views/admin/index.jsp=UTF-8
-encoding//src/main/webapp/WEB-INF/jsp/views/admin/login.jsp=UTF-8
-encoding//src/main/webapp/WEB-INF/jsp/views/admin/news.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/jsp/views/cland/cat.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/jsp/views/cland/contact.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/jsp/views/cland/index.jsp=UTF-8
