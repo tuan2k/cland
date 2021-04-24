@@ -44,7 +44,7 @@
 										alt="" /> <img class="img_bottom"
 										src="${pageContext.request.contextPath}/resources/cland/images/work_bg2.png" alt="" />
 									<h2>${land.lid }</h2>
-									<a href=""><p class="caption">${land.lname }</p></a>
+									<a href="${pageContext.request.contextPath}/single/${land.lid}"><p class="caption">${land.lname }</p></a>
 								</div>
 							</c:forEach>
 						</c:when>

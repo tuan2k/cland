@@ -7,6 +7,11 @@
 "
 	version="3.1">
 	
+	<error-page>
+  <error-code>404</error-code>
+  <location>/jsp/views/error/403.jsp</location>
+  </error-page>
+	
 	<sesssion-config>
 	<session-timeout>10</session-timeout>
 	</sesssion-config>

@@ -7,11 +7,17 @@
 			<div class="content-box-header panel-heading">
 				<div class="panel-title ">Sửa đất đai</div>
 			</div>
+			<br> <br>
+			<c:if test="${not empty msg }">
+			<div class="alert alert-danger" role="alert">
+			${ msg}
+			</div>
+			</c:if>
 			<div class="content-box-large box-with-header">
 			
 				<c:choose>
 				<c:when test="${not empty land }">
-				<form:form action="${pageContext.request.contextPath }/land/edit" method="post" enctype="multipart/form-data" modelAttribute="land">
+				<form:form action="${pageContext.request.contextPath }/admin/land/edit" method="post" enctype="multipart/form-data" modelAttribute="land">
 				<div>
 					<div class="row mb-10"></div>
 
@@ -27,7 +33,7 @@
 								<label>Danh mục </label> 
 								<select class="form-control" name="cid">
 									<c:forEach items="${listcats}" var="cat">
-									<option value="${ cat.cid }">${cat.cname }</option>
+									<option value="${ cat.cid }" <c:if test="${cat.cid == land.category.cid }">checked</c:if> >${cat.cname }</option>
 									</c:forEach>
 								</select>
 							</div>

@@ -16,7 +16,7 @@
 			
 				<form:errors path="land.*" cssStyle="color:red"
 						cssClass="error"></form:errors>
-				<form:form action="${pageContext.request.contextPath}/admin/land/add" method="post" enctype="multipart/form-data" modelAttribute="land">
+				<form action="${pageContext.request.contextPath}/admin/land/add" method="post" enctype="multipart/form-data" modelAttribute="land">
 				<div>
 					<div class="row mb-10"></div>
 
@@ -74,7 +74,7 @@
 						</div>
 					</div>
 				</div>
-				</form:form>
+				</form>
 				
 			</div>
 			

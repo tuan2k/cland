@@ -186,5 +186,31 @@ public class LandDAO {
 			}
 		});	
 	}
+	
+	public Land findOne(Land land) {
+		String sql = "SELECT * FROM lands l INNER JOIN categories c on l.cid = c.cid where lname = ?";
+		return jdbcTemplate.query(sql,new ResultSetExtractor<Land>() {
+			@Override
+			public Land extractData(ResultSet rs) throws SQLException, DataAccessException {
+				// TODO Auto-generated method stub
+				Land land = new Land();
+				if(rs.next()) {
+					Category cat = new Category();
+					land.setLid(rs.getInt("lid"));;
+					land.setLname(rs.getString("lname"));
+					land.setAddress(rs.getString("address"));
+					land.setDescription(rs.getString("description"));
+					land.setPicture(rs.getString("picture"));
+					land.setCount_views(rs.getInt("count_views"));
+					land.setDate(rs.getString("date_create"));
+					land.setArea(rs.getInt("area"));
+					cat.setCid(rs.getInt("cid"));
+					cat.setCname(rs.getString("cname"));
+					land.setCategory(cat);
+				}
+				return land;
+			}
+		},land.getLname());	
+	}
 
 }

@@ -18,9 +18,6 @@
 		<div class="vnecontent">
 			<p>${land.description }</p>
 		</div>
-
-		<a class="btn" href="">Bài trước</a> <a class="btn" href="">Bài kế</a>
-
 	</div>
 
 	<div class="more_themes">
@@ -29,25 +26,17 @@
 		</h2>
 		<c:choose>
 		<c:when test="${not empty listlands }">
-		<c:forEach items="${listland }" var="lands">
-		<c:if test="${land.lid != lands.lid }">
-		<div class="more_themes_container">
-			<div class="single_more_themes floatleft">
-				<img src="http://dummyimage.com/220x150/000/fff&text=Thumbnail"
-					alt="" /> <a href="${pageContext.request.contextPath }/single/${lands.lid}"><h2>${lands.lname }</h2></a>
-			</div>
-		</div>
+		<c:forEach items="${listlands }" var="lands">
+		<c:if test="${land.lid != lands.lid && land.category.cid == lands.category.cid}">
+		<h2><a href="${pageContext.request.contextPath }/single/${lands.lid}">${lands.lname }</a></h2>
 		</c:if>
 		</c:forEach>
 		</c:when>
 		<c:otherwise>
-		empty
+			<h2>Empty listlands</h2>
 		</c:otherwise>
-		
 		</c:choose>
-		
 	</div>
-	
 	</c:when>
 	</c:choose>
 	

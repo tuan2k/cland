@@ -61,8 +61,7 @@ public class LandService implements ICRUDService<Land> {
 
 	@Override
 	public Land findOne(Land t) {
-		// TODO Auto-generated method stub
-		return null;
+		return landDAO.findOne(t);
 	}
 
 	public int totalRow() {

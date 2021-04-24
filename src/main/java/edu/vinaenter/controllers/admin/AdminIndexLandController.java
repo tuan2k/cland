@@ -80,13 +80,18 @@ public class AdminIndexLandController {
 			System.out.println("Có lỗi dữ liệu");
 			return "admin.land.add";
 		}
-		int save = landService.save(land);
+		Land l = null;
+		l = landService.findOne(land);
+		int save = 0;
+		if (l == null) {
+			 System.out.println("success");
+			 save = landService.save(land);
+		}
 		if (save > 0) {
 			msg.addFlashAttribute("msg",messageSource.getMessage("msg.success", null, Locale.ENGLISH));
 			return "redirect:/admin/land/index";
 		}
-		System.out.println("faile ne");
-		msg.addFlashAttribute("msg",messageSource.getMessage("msg.faile", null, Locale.ENGLISH));
+		msg.addFlashAttribute("msg",messageSource.getMessage("msg.exist", null, Locale.ENGLISH));
 		return "redirect:/admin/land/add";
 	}
 	
@@ -94,12 +99,28 @@ public class AdminIndexLandController {
 	public String edit(@PathVariable Integer id, Model model) {
 		Land land = landService.getById(id);
 		model.addAttribute("land",land);
+		List<Category> listcats = categoryService.getList();
+		model.addAttribute("listcats", listcats);
 		return "admin.land.edit";
 	}
 	
 	@PostMapping("edit") // can't set name if the name is the same in form
-	public String edit(@Valid @ModelAttribute("land") Land land, BindingResult rs
-			, RedirectAttributes msg) {
+	public String edit(@Valid @ModelAttribute("land") Land land,@ModelAttribute("category") Category cat ,BindingResult rs
+			,@RequestParam("image") MultipartFile image, RedirectAttributes msg, HttpServletRequest HttpServletRequest) {
+		Category c = categoryService.getById(cat.getCid());
+		Land lold = landService.getById(land.getLid());
+		land.setCategory(c);
+		if (image == null) {
+			land.setPicture(lold.getPicture());
+		}else {
+			String fileName = FileUtil.upload(image,HttpServletRequest );
+			// get fileName to insert db
+			land.setPicture(fileName);
+		}
+		if (rs.hasErrors()) {
+			System.out.println("Có lỗi dữ liệu");
+			return "admin.land.add";
+		}
 		if (rs.hasErrors()) {
 			System.out.println("Có lỗi dữ liệu");
 			return "admin.land.edit";
@@ -111,9 +132,10 @@ public class AdminIndexLandController {
 		}
 		if (save > 0) {
 			msg.addFlashAttribute("msg",messageSource.getMessage("msg.success", null, Locale.ENGLISH));
-			return "redirect:/admin/land/index";
+			return "redirect:/admin/land/index";	
 		}
-		return "admin.land.edit";
+		msg.addFlashAttribute("msg",messageSource.getMessage("msg.exist", null, Locale.ENGLISH));
+		return "redirect:/admin/land/edit"+land.getLid();
 	}
 	
 	@GetMapping("detail/{id}")

@@ -94,7 +94,9 @@ public class AdminIndexUserController {
 			msg.addFlashAttribute("msg",messageSource.getMessage("msg.success", null, Locale.ENGLISH));
 			return "redirect:/admin/user/index";
 		}
-		return "admin.useredit";
+		msg.addFlashAttribute("msg",messageSource.getMessage("msg.exist", null, Locale.ENGLISH));
+		int id = user.getId();
+		return "redirect:/admin/user/edit/"+id;
 	}
 
 	

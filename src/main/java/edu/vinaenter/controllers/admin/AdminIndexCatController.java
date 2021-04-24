@@ -53,7 +53,7 @@ public class AdminIndexCatController {
 		return "admin.catadd";
 	}
 
-	@GetMapping("edit/{id}")
+	@GetMapping({"edit/{id}","edit"})
 	public String edit(@PathVariable Integer id, Model model) {
 		Category cat = catService.getById(id);
 		model.addAttribute("cat",cat);
@@ -78,7 +78,8 @@ public class AdminIndexCatController {
 			return "redirect:/admin/cat/index";
 		}
 		msg.addFlashAttribute("msg",messageSource.getMessage("msg.exist", null, Locale.ENGLISH));
-		return "redirect:/admin/cat/edit";
+		int cid = c.getCid();
+		return "redirect:/admin/cat/edit/"+cid;
 	}
 
 	

@@ -8,7 +8,12 @@
 			<div class="content-box-header panel-heading">
 				<div class="panel-title ">Sửa người sử dụng</div>
 			</div>
-
+			<br> <br>
+			<c:if test="${not empty msg }">
+			<div class="alert alert-danger" role="alert">
+			${ msg}
+			</div>
+			</c:if>
 			<div class="content-box-large box-with-header">
 				<div>
 					<div class="row mb-10"></div>
