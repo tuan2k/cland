@@ -1,5 +1,3 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
 <%@include file="/WEB-INF/jsp/components/taglib.jsp"%>	
 <%@page isErrorPage="true" %>
 <!DOCTYPE html>
@@ -10,6 +8,7 @@
 </head>
 <body>
 <h1>Ko co quyen truy cap vao</h1>
+<h1 style="margin: 120px 120px 120px 120px"><a href="${pageContext.request.contextPath}/admin/index">Home</a></h1>
 
 </body>
 </html>

@@ -1,6 +1,8 @@
 package edu.vinaenter.models;
 
-import javax.validation.constraints.NotEmpty;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import lombok.Getter;
@@ -8,30 +10,31 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
-@Setter
+@Setter																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																					
 @NoArgsConstructor
 public class Land {
 	
 	private int lid;
 	
-	@NotEmpty
-	@Size(min =3,max =30)
+	@NotBlank
+	@Size(min =1)
 	private String lname;
 	
-	@NotEmpty
-	@Size(min = 10)
+	@NotBlank
+	@Size(min = 1)
 	private String description;
 	
 	private String date;
 	
+	@Valid
 	private Category category;
 	
 	private String picture;
 	
 	private int area;
 	
-	@NotEmpty
-	@Size(min = 10, max = 100)
+	@NotBlank
+	@Size(min = 1)
 	private String address;
 	
 	private int count_views;

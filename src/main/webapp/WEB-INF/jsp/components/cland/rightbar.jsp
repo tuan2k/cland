@@ -7,8 +7,8 @@
 		<ul>
 			<c:choose>
 			<c:when test="${ not empty listcats }">
-			<c:forEach items="${listcats}" var="cat" >
-			<li class="cat-item"><a href="${pageContext.request.contextPath}/cat/${cat.cid}">${cat.cname }</a>(12)</li>
+			<c:forEach items="${listcats}" var="cat">
+			<li class="cat-item"><a href="${pageContext.request.contextPath}/cat/${cat.cid}">${cat.cname }</a>(${cat.num })</li>
 			</c:forEach>
 			</c:when>
 			<c:otherwise>
@@ -23,10 +23,8 @@
 			<div class="sidebar_title">
 				<h2>Xem nhiều</h2>
 			</div>
-			<ul>
-				
-						
-				<c:choose>
+			<ul>	
+			<c:choose>
 			<c:when test="${ not empty listlands }">
 			<c:forEach items="${listlands}" var="land" >
 			<li><a href="${pageContext.request.contextPath}/single/${land.lid}">${land.lname }</a></li>
@@ -46,7 +44,7 @@
 			<c:choose>
 			<c:when test="${ not empty listcats }">
 			<c:forEach items="${listcats}" var="cat" >
-			<li class="cat-item"><a href="${pageContext.request.contextPath}/cat/${cat.cid}">${cat.cname }</a>(12)</li>
+			<li class="cat-item"><a href="${pageContext.request.contextPath}/cat/${cat.cid}">${cat.cname }</a>(${cat.num})</li>
 			</c:forEach>
 			</c:when>
 			<c:otherwise>

@@ -43,7 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.failureUrl("/auth/login?msg=error")
 		.successForwardUrl("/admin/index")
 		.loginProcessingUrl("/auth/login")
-		.defaultSuccessUrl("/admin/land/index",false)
+		.defaultSuccessUrl("/admin/index",true)
 		.and()
 		.logout()
 		.logoutUrl("/auth/logout")
@@ -52,7 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.exceptionHandling()
 		.accessDeniedPage("/error/403")
 		.and()
-		.csrf().disable();
+		.csrf().disable();		
 	}
 
 	@Bean

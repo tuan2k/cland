@@ -6,7 +6,7 @@
 	<div class="row">
 		<div class="col-md-12 panel-info">
 			<div class="content-box-header panel-heading">
-				<div class="panel-title ">Thêm liên lạc</div>
+				<div class="panel-title ">Sửa liên lạc</div>
 			</div>
 
 			<div class="content-box-large box-with-header">
@@ -40,7 +40,7 @@
 											placeholder="Nhập nội dung">${contact.content }</textarea>
 									</div>
 									<div class="col-sm-12">
-										<input type="submit" value="Thêm" class="btn btn-success" />
+										<input type="submit" value="Sửa" class="btn btn-success" />
 										<input type="reset" value="Nhập lại" class="btn btn-default" />
 									</div>
 								</form>

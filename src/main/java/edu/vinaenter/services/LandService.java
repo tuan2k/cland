@@ -56,7 +56,7 @@ public class LandService implements ICRUDService<Land> {
 	@Override
 	public int edit(Land t) {
 		// TODO Auto-generated method stub
-		return 0;
+		return landDAO.edit(t);
 	}
 
 	@Override
@@ -68,7 +68,11 @@ public class LandService implements ICRUDService<Land> {
 		return landDAO.totalRow();
 	}
 
-	public List<Land> getBySearch(String search) {
-		return landDAO.getBySearch(search);
+	public List<Land> getBySearch(String search,int offset, int totalPage) {
+		return landDAO.getBySearch(search,offset,totalPage);
+	}
+
+	public int totalRowSearch(String search) {
+		return landDAO.totalRowSearch(search);
 	}
 }

@@ -17,6 +17,8 @@ public class Category {
 	@NotEmpty()
 	@Size(min=3, max =30, message = "name category min=3 and max = 30")
 	private String cname;
+	
+	private int num;
 
 	public Category(int id, String name) {
 		super();

@@ -23,12 +23,14 @@
 
 			</div>
 			<div class="col-md-4">
+			<form action="${pageContext.request.contextPath}/admin/contact/search">
 				<div class="input-group form">
-					<input type="text" class="form-control" placeholder="Search...">
+					<input type="text" class="form-control" placeholder="Search..." name="search">
 					<span class="input-group-btn">
-						<button class="btn btn-primary" type="button">Search</button>
+						<input value ="Search" class="btn btn-primary" type="submit"/>
 					</span>
 				</div>
+			</form>
 			</div>
 		</div>
 
@@ -73,22 +75,6 @@
 						<p class="msg">Empty news</p>
 					</c:otherwise>
 				</c:choose>
-
-				<!-- Pagination -->
-				<nav class="text-center" aria-label="...">
-					<ul class="pagination">
-						<li class="disabled"><a href="#" aria-label="Previous"><span
-								aria-hidden="true">«</span></a></li>
-						<li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-						<li><a href="#">2</a></li>
-						<li><a href="#">3</a></li>
-						<li><a href="#">4</a></li>
-						<li><a href="#">5</a></li>
-						<li><a href="#" aria-label="Next"><span
-								aria-hidden="true">»</span></a></li>
-					</ul>
-				</nav>
-				<!-- /.pagination -->
 
 			</div>
 		</div>

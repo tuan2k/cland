@@ -1,5 +1,6 @@
 package edu.vinaenter.controllers.admin;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.vinaenter.models.User;
@@ -85,7 +87,8 @@ public class AdminIndexUserController {
 			System.out.println("Có lỗi dữ liệu");
 			return "admin.useredit";
 		}
-		User u = userService.findOne(user);
+		User u = null;
+		u = userService.validateUpdate(user);
 		int save = 0;
 		if (u == null) {
 			save = userService.edit(user);
@@ -117,6 +120,19 @@ public class AdminIndexUserController {
 			return "redirect:/admin/user/index";
 		}
 		return "admin.index";
+	}
+	
+	@GetMapping("/search")
+	public String index(Model model,@RequestParam("search") String search, RedirectAttributes msg) {
+		List<User> listusers = new ArrayList<User>();
+		listusers = userService.getBySearch(search);
+		if (listusers.size() > 0) {
+			msg.addFlashAttribute("msg",messageSource.getMessage("msg.success", null, Locale.ENGLISH));
+			model.addAttribute("listusers", listusers);
+			return "admin.userindex";
+		}
+		msg.addFlashAttribute("msg",messageSource.getMessage("msg.empty", null, Locale.ENGLISH));
+		return "admin.userindex";
 	}
 
 }

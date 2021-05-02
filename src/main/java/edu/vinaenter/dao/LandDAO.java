@@ -87,9 +87,15 @@ public class LandDAO {
 		String sql = "select count(*) as count from lands l  INNER JOIN categories c on l.cid= c.cid";
 		return jdbcTemplate.queryForObject(sql, Integer.class);
 	}
+	
+	public int totalRowSearch(String search) {
+		String sql = "select count(*) as count from lands l  INNER JOIN categories c on l.cid= c.cid where l.lname like '%"
+				+search+"%'"+"or l.description like '%"+search+"%'";
+		return jdbcTemplate.queryForObject(sql, Integer.class);
+	}
 
 	public Land getById(int id) {
-		String sql = "SELECT * FROM lands l INNER JOIN categories c on l.cid = c.cid where lid = ?";
+		String sql = "SELECT * FROM lands l INNER JOIN categories c on l.cid = c.cid where l.lid = ?";
 		return jdbcTemplate.query(sql,new ResultSetExtractor<Land>() {
 			@Override
 			public Land extractData(ResultSet rs) throws SQLException, DataAccessException {
@@ -156,9 +162,9 @@ public class LandDAO {
 		return jdbcTemplate.update(sql, id);
 	}
 
-	public List<Land> getBySearch(String search) {
+	public List<Land> getBySearch(String search,int offset, int totalPage) {
 		String sql = "SELECT * FROM lands l INNER JOIN categories c on l.cid = c.cid where l.lname like '%"+search+"%'"
-				+ " or l.description like '%"+search+"%'";
+				+ " or l.description like '%"+search+"%' limit ?,?";
 		return jdbcTemplate.query(sql,new ResultSetExtractor<List<Land>>() {
 			@Override
 			public List<Land> extractData(ResultSet rs) throws SQLException, DataAccessException {
@@ -184,11 +190,11 @@ public class LandDAO {
 				}
 				return listlands;
 			}
-		});	
+		},offset,totalPage);	
 	}
 	
 	public Land findOne(Land land) {
-		String sql = "SELECT * FROM lands l INNER JOIN categories c on l.cid = c.cid where lname = ?";
+		String sql = "SELECT * FROM lands l INNER JOIN categories c on l.cid = c.cid where l.lname = ? and l.lid != ?";
 		return jdbcTemplate.query(sql,new ResultSetExtractor<Land>() {
 			@Override
 			public Land extractData(ResultSet rs) throws SQLException, DataAccessException {
@@ -207,10 +213,19 @@ public class LandDAO {
 					cat.setCid(rs.getInt("cid"));
 					cat.setCname(rs.getString("cname"));
 					land.setCategory(cat);
+				}else {
+					land = null;
 				}
 				return land;
 			}
-		},land.getLname());	
+		},land.getLname(),land.getLid());	
+	}
+
+	public int edit(Land t) {
+		String sql = "update lands set lname= ?, address =?, description=?,"
+				+ " picture=?, count_views =?, area=?, cid=?  where lid = ?";
+		return jdbcTemplate.update(sql,t.getLname(), t.getAddress(),t.getDescription(),t.getPicture(), t.getCount_views(),
+			t.getArea(),t.getCategory().getCid(),t.getLid());
 	}
 
 }

@@ -1,5 +1,6 @@
 package edu.vinaenter.controllers.admin;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.vinaenter.models.Contact;
@@ -64,12 +66,19 @@ public class AdminIndexContactController {
 			System.out.println("Có lỗi dữ liệu");
 			return "admin.contact.edit";
 		}
-		int save = contactService.edit(contact);
+		Contact c = null;
+		int save = 0;
+		c = contactService.validateUpdate(contact);
+		if (c == null) {
+			save = contactService.edit(contact);
+		}
 		if (save > 0) {
 			msg.addFlashAttribute("msg",messageSource.getMessage("msg.success", null, Locale.ENGLISH));
 			return "redirect:/admin/contact/index";
 		}
-		return "admin.contact.edit";
+		msg.addFlashAttribute("msg",messageSource.getMessage("msg.exist", null, Locale.ENGLISH));
+		int id = contact.getCid();
+		return "redirect:/admin/contact/edit/"+id;
 	}
 
 
@@ -80,7 +89,12 @@ public class AdminIndexContactController {
 			System.out.println("Có lỗi dữ liệu");
 			return "admin.contact.add";
 		}
-		int save = contactService.save(contact);
+		Contact c = null;
+		int save = 0;
+		c = contactService.validateContact(contact);
+		if (c == null) {
+			save = contactService.save(contact);
+		}
 		if (save > 0) {
 			msg.addFlashAttribute("msg",messageSource.getMessage("msg.success", null, Locale.ENGLISH));
 			return "redirect:/admin/contact/index";
@@ -97,6 +111,19 @@ public class AdminIndexContactController {
 			msg.addFlashAttribute("msg",messageSource.getMessage("msg.success", null, Locale.ENGLISH));
 			return "redirect:/admin/contact/index";
 		}
+		return "admin.contact.index";
+	}
+	
+	@GetMapping("/search")
+	public String index(Model model,@RequestParam("search") String search, RedirectAttributes msg) {
+		List<Contact> listcontacts = new ArrayList<Contact>();
+		listcontacts = contactService.getBySearch(search);
+		if (listcontacts.size() > 0) {
+			msg.addFlashAttribute("msg",messageSource.getMessage("msg.success", null, Locale.ENGLISH));
+			model.addAttribute("listcontacts", listcontacts);
+			return "admin.contact.index";
+		}
+		msg.addFlashAttribute("msg",messageSource.getMessage("msg.empty", null, Locale.ENGLISH));
 		return "admin.contact.index";
 	}
 

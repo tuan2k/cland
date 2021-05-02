@@ -1,6 +1,7 @@
 package edu.vinaenter.controllers.admin;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -8,6 +9,8 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
@@ -43,6 +46,9 @@ public class AdminIndexLandController {
 	@Autowired
 	private CategoryService categoryService;
 	
+	private static final Logger logger = 
+			LoggerFactory.getLogger(AdminIndexLandController.class);
+	
 	//devide page
 	@GetMapping({"index","index/{page}"})
 	public String index(Model model,@PathVariable(required = false) Integer page) throws ParseException {
@@ -58,6 +64,22 @@ public class AdminIndexLandController {
 		model.addAttribute("totalPage",totalPage);
 		return "admin.land.index";
 	}
+	
+	@GetMapping({"/search","/{page}/search"})
+	public String index(Model model,@PathVariable(required = false) Integer page,@RequestParam("search") String search) {
+		if ( page == null) {
+			page = 1;
+		}
+		int totalPage = PageUtil.getTotalRow(landService.totalRowSearch(search));
+		List<Land> listlands = new ArrayList<Land>();
+		listlands = landService.getBySearch(search,PageUtil.getOffset(page),GlobalContant.TOTAL_PAGE);
+		model.addAttribute("search",search);
+		model.addAttribute("listlands", listlands);
+		model.addAttribute("currentPage",page);
+		model.addAttribute("totalPage",totalPage);
+		return "admin.land.index";
+	}
+	
 
 	@GetMapping("add")
 	public String add(Model model) {
@@ -67,19 +89,22 @@ public class AdminIndexLandController {
 	}
 
 	@PostMapping("add") // can't set name if the name is the same in form
-	public String add(@Valid @ModelAttribute("land") Land land,@ModelAttribute("category") Category cat ,BindingResult rs
-			,@RequestParam("image") MultipartFile image, RedirectAttributes msg, HttpServletRequest HttpServletRequest) {
+	public String add(@Valid @ModelAttribute("land") Land land,@Valid @ModelAttribute("category") Category cat 
+			,@RequestParam("image") MultipartFile image, RedirectAttributes msg, HttpServletRequest HttpServletRequest,BindingResult rs) {
 		// set name model attribute to get in add.jsp
 		// insert into db
-		Category c = categoryService.getById(cat.getCid());
+		logger.debug("this is log");
+		Category c = categoryService.getByName(cat.getCname());
 		land.setCategory(c);
-		String fileName = FileUtil.upload(image,HttpServletRequest );
-		// get fileName to insert db
-		land.setPicture(fileName);
+		System.out.println("vo controller");
 		if (rs.hasErrors()) {
 			System.out.println("Có lỗi dữ liệu");
-			return "admin.land.add";
+			System.out.println(rs.getFieldError().getField());
+			return "redirect:/admin/land/add";
 		}
+		// get fileName to insert db
+		String fileName = FileUtil.upload(image,HttpServletRequest );
+		land.setPicture(fileName);
 		Land l = null;
 		l = landService.findOne(land);
 		int save = 0;
@@ -110,7 +135,7 @@ public class AdminIndexLandController {
 		Category c = categoryService.getById(cat.getCid());
 		Land lold = landService.getById(land.getLid());
 		land.setCategory(c);
-		if (image == null) {
+		if (image.getOriginalFilename().equals("")) {
 			land.setPicture(lold.getPicture());
 		}else {
 			String fileName = FileUtil.upload(image,HttpServletRequest );
@@ -119,13 +144,10 @@ public class AdminIndexLandController {
 		}
 		if (rs.hasErrors()) {
 			System.out.println("Có lỗi dữ liệu");
-			return "admin.land.add";
-		}
-		if (rs.hasErrors()) {
-			System.out.println("Có lỗi dữ liệu");
 			return "admin.land.edit";
 		}
-		Land l = landService.findOne(land);
+		Land l = null;
+		l = landService.findOne(land);
 		int save = 0;
 		if (l == null) {
 			save = landService.edit(land);
@@ -135,7 +157,7 @@ public class AdminIndexLandController {
 			return "redirect:/admin/land/index";	
 		}
 		msg.addFlashAttribute("msg",messageSource.getMessage("msg.exist", null, Locale.ENGLISH));
-		return "redirect:/admin/land/edit"+land.getLid();
+		return "redirect:/admin/land/edit/"+land.getLid();
 	}
 	
 	@GetMapping("detail/{id}")

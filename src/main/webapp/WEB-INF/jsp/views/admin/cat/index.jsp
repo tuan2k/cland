@@ -21,14 +21,16 @@
 					class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;Thêm</a>
 
 			</div>
+			<form action="${pageContext.request.contextPath}/admin/cat/search">
 			<div class="col-md-4">
 				<div class="input-group form">
-					<input type="text" class="form-control" placeholder="Search...">
+					<input type="text" class="form-control" placeholder="Search..." name="search">
 					<span class="input-group-btn">
-						<button class="btn btn-primary" type="button">Search</button>
+						<input type="submit" value="Search" class="btn btn-primary" type="button"/>
 					</span>
 				</div>
 			</div>
+			</form>
 		</div>
 
 		<div class="row">

@@ -5,6 +5,8 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -64,5 +66,39 @@ public class UserDAO {
 				return u;
 			}
 		},t.getUsername());
+	}
+
+	public User getByName(String username) {
+		String sql = "select * from users where username = ?";
+		return jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(User.class), new Object[] { username });
+	}
+
+	public User validateUpdate(@Valid User user) {
+		String sql = "select * from users where id !=? and username = ?";
+		return jdbcTemplate.query(sql, new ResultSetExtractor<User>(){
+			@Override
+			public User extractData(ResultSet rs) throws SQLException, DataAccessException {
+				// TODO Auto-generated method stub
+				User u = new User();
+				if(rs.next()) {
+					u.setId(rs.getInt("id"));
+					u.setUsername(rs.getString("username"));
+					u.setPassword(rs.getString("password"));
+					u.setFullname(rs.getString("fullname"));
+					u.setEnabled(rs.getInt("enabled"));
+					u.setRole_id(rs.getInt("role_id"));
+					u.setToken(null);
+				}else {
+					u =  null;
+				}
+				return u;
+			}
+		},user.getId(), user.getUsername());
+	}
+
+	public List<User> getBySearch(String search) {
+		String sql = "SELECT * FROM users where username like '%"+search+"%'"
+				+ " or fullname like '%"+search+"%'";
+		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(User.class));
 	}
 }

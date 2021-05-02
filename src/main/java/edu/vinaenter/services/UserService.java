@@ -3,6 +3,8 @@ package edu.vinaenter.services;
 import java.text.ParseException;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -45,6 +47,18 @@ public class UserService implements ICRUDService<User> {
 	@Override
 	public User findOne(User t) {
 		return userDAO.findOne(t);
+	}
+
+	public User getByName(String username) {
+		return userDAO.getByName(username);
+	}
+
+	public User validateUpdate(@Valid User user) {
+		return userDAO.validateUpdate(user);
+	}
+
+	public List<User> getBySearch(String search) {
+		return userDAO.getBySearch(search);
 	}
 
 }

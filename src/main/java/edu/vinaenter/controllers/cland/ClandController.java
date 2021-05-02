@@ -55,6 +55,9 @@ public class ClandController {
 		int totalPage = PageUtil.getTotalRow(landService.totalRow());
 		List<Category> listcats = new ArrayList<Category>();
 		listcats = catService.getList();
+		for (Category c : listcats) {
+			c.setNum(catService.totalCategoryById(c.getCid()));
+		}
 		model.addAttribute("listcats",listcats);
 		model.addAttribute("listlands", test);
 		model.addAttribute("currentPage",page);
@@ -62,24 +65,41 @@ public class ClandController {
 		return "cland.index";
 	}
 	
-	@GetMapping("/search")
-	public String index(Model model,@RequestParam("search") String search) {
-		
+	@GetMapping({"/search","/{page}/search"})
+	public String index(Model model,@PathVariable(required = false) Integer page,@RequestParam("search") String search) {
+		if ( page == null) {
+			page = 1;
+		}
+		int totalPage = PageUtil.getTotalRow(landService.totalRowSearch(search));
 		List<Land> listlands = new ArrayList<Land>();
-		listlands = landService.getBySearch(search);
+		listlands = landService.getBySearch(search,PageUtil.getOffset(page),GlobalContant.TOTAL_PAGE);
 		List<Category> listcats = new ArrayList<Category>();
 		listcats = catService.getList();
+		for (Category c : listcats) {
+			c.setNum(catService.totalCategoryById(c.getCid()));
+		}
+		model.addAttribute("search",search);
 		model.addAttribute("listcats",listcats);
 		model.addAttribute("listlands", listlands);
+		model.addAttribute("currentPage",page);
+		model.addAttribute("totalPage",totalPage);
 		return "cland.index";
 	}
 	
 	@GetMapping("/cat/{id}")
 	public String cat(Model model,@PathVariable Integer id) {
 		List<Land> listlands = landService.getByCategoryId(id);
-		model.addAttribute("listlands",listlands);
+		List<Land> listland = new ArrayList<Land>();
+		for (int i=1;i<=2;i++) {
+			listland.add(listlands.get(i-1));
+		}
+		model.addAttribute("listlands",listland);
+		model.addAttribute("listland",listlands);
 		List<Category> listcats = new ArrayList<Category>();
 		listcats = catService.getList();
+		for (Category c : listcats) {
+			c.setNum(catService.totalCategoryById(c.getCid()));
+		}
 		model.addAttribute("listcats",listcats);
 		return "cland.cat";
 	}
@@ -88,6 +108,16 @@ public class ClandController {
 	public String contact(Model model) {
 		List<Category> listcats = new ArrayList<Category>();
 		listcats = catService.getList();
+		List<Land> listlands = new ArrayList<Land>();
+		listlands = landService.getList();
+		List<Land> listland = new ArrayList<Land>();
+		for (int i=1;i<=2;i++) {
+			listland.add(listlands.get(i-1));
+		}
+		for (Category c : listcats) {
+			c.setNum(catService.totalCategoryById(c.getCid()));
+		}
+		model.addAttribute("listlands",listland);
 		model.addAttribute("listcats",listcats);
 		return "cland.contact";
 	}
@@ -101,12 +131,18 @@ public class ClandController {
 		if (rs.hasErrors()) {
 			System.out.println("có lỗi dữ liệu");
 		}
-		int save = contactService.save(contact);
+		Contact ct = null;
+		int save = 0;
+		ct = contactService.validateContact(contact);
+		if (ct == null) {
+			save = contactService.save(contact);
+		}
 		if (save > 0) {
 			msg.addFlashAttribute("msg",messageSource.getMessage("msg.success", null, Locale.ENGLISH));
 			return "redirect:/contact";
 		}
-		return "cland.contact";
+		msg.addFlashAttribute("msg",messageSource.getMessage("msg.exist", null, Locale.ENGLISH));
+		return "redirect:/contact";
 	}
 	
 	@GetMapping("/single/{id}")
@@ -115,9 +151,17 @@ public class ClandController {
 		List<Land> listlands = new ArrayList<Land>();
 		listlands = landService.getList();
 		List<Category> listcats = new ArrayList<Category>();
+		List<Land> listland = new ArrayList<Land>();
 		listcats = catService.getList();
+		for (Category c : listcats) {
+			c.setNum(catService.totalCategoryById(c.getCid()));
+		}
+		for (int i=1;i<=2;i++) {
+			listland.add(listlands.get(i-1));
+		}
+		model.addAttribute("listlands",listland);
 		model.addAttribute("listcats",listcats);
-		model.addAttribute("listlands",listlands);
+		model.addAttribute("listland",listlands);
 		model.addAttribute("land",land);
 		return "cland.single";
 	}

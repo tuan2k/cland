@@ -28,18 +28,18 @@
 									<div class="form-group">
 										<label for="name">Tên đăng nhập:</label> <input type="text"
 											name="username" class="form-control"
-											placeholder="Nhập tên đăng nhập">
+											placeholder="Nhập tên đăng nhập" required>
 									</div>
 
 									<div class="form-group">
 										<label for="name">Mật khẩu:</label> <input type="password"
 											name="password" class="form-control"
-											placeholder="Nhập mật khẩu">
+											placeholder="Nhập mật khẩu" required>
 									</div>
 									<div class="form-group">
 										<label for="name">Họ và tên: </label> <input type="text"
 											name="fullname" class="form-control"
-											placeholder="Nhập mật khẩu">
+											placeholder="Nhập mật khẩu" required>
 									</div>
 								</div>
 								<div class="col-sm-12">

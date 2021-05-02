@@ -3,6 +3,8 @@ package edu.vinaenter.services;
 import java.text.ParseException;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -46,5 +48,17 @@ public class ContactService implements ICRUDService<Contact> {
 	public Contact findOne(Contact t) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public Contact validateContact(Contact contact) {
+		return contactDAO.validateContact(contact);
+	}
+
+	public Contact validateUpdate(@Valid Contact contact) {
+		return contactDAO.validateUpdate(contact);
+	}
+
+	public List<Contact> getBySearch(String search) {
+		return contactDAO.getBySearch(search);
 	}
 }

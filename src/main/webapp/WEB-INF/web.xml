@@ -12,7 +12,4 @@
   <location>/jsp/views/error/403.jsp</location>
   </error-page>
 	
-	<sesssion-config>
-	<session-timeout>10</session-timeout>
-	</sesssion-config>
 </web-app>

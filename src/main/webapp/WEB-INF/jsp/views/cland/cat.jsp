@@ -37,8 +37,8 @@
 
 				<div class="clearfix single_work_container">
 					<c:choose>
-						<c:when test="${not empty listlands }">
-							<c:forEach items="${listlands }" var="land">
+						<c:when test="${not empty listland }">
+							<c:forEach items="${listland }" var="land">
 								<div class="clearfix single_work">
 									<img class="img_top" src="${pageContext.request.contextPath}/resources/cland/images/work1.png"
 										alt="" /> <img class="img_bottom"

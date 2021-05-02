@@ -12,11 +12,11 @@
 				<div class="alert alert-danger" role="alert">${msg }</div>
 			</c:if>
 			
-			<div class="content-box-large box-with-header">
-			
-				<form:errors path="land.*" cssStyle="color:red"
+			<form:errors path="land.*" cssStyle="color:red"
 						cssClass="error"></form:errors>
-				<form action="${pageContext.request.contextPath}/admin/land/add" method="post" enctype="multipart/form-data" modelAttribute="land">
+			<div class="content-box-large box-with-header">
+				<form action="${pageContext.request.contextPath}/admin/land/add" id="frmLogin"
+				 method="post" enctype="multipart/form-data">
 				<div>
 					<div class="row mb-10"></div>
 
@@ -24,43 +24,43 @@
 						<div class="col-sm-6">
 							<div class="form-group">
 								<label for="name">Tên lô đất</label>
-								 <input type="text" class="form-control" name="lname">
+								 <input type="text" class="form-control" name="lname" required>
 							</div>
 
 							<div class="form-group">
 								<label>Danh mục </label> 
-								<select class="form-control" name="cid">
+								<select class="form-control" name="cname">
 									<c:forEach items="${listcats}" var="cat">
-									<option value="${ cat.cid }">${cat.cname }</option>
+									<option value="${ cat.cname }">${cat.cname }</option>
 									</c:forEach>
 								</select>
 							</div>
 							
 							<div class="form-group">
 								<label>Mô tả</label>
-								<textarea class="form-control" rows="3" name="description"></textarea>
+								<textarea class="form-control" rows="3" name="description" required></textarea>
 							</div>
 							
 							<div class="form-group">
 								<label>Thêm hình ảnh</label>
-								<input type="file" class="btn btn-default" name="image">
+								<input type="file" class="btn btn-default" name="image" required>
 								<p class="help-block">
 									<em>Định dạng: jpg, png, jpeg,...</em>
 								</p>
 							</div>
 							<div class="form-group">
 								<label for="name">area</label>
-								 <input type="text" class="form-control" name="area">
+								 <input type="text" class="form-control" name="area" required>
 							</div>
 							
 							<div class="form-group">
 								<label for="name">Địa chỉ</label>
-								 <input type="text" class="form-control" name="address">
+								 <input type="text" class="form-control" name="address" required>
 							</div>
 							
 							<div class="form-group">
 								<label for="name">count_views</label>
-								 <input type="text" class="form-control" name="count_views">
+								 <input type="text" class="form-control" name="count_views" required>
 							</div>
 						</div>
 					</div>
@@ -81,5 +81,4 @@
 		</div>
 	</div>
 	<!-- /.row col-size -->
-
 </div>

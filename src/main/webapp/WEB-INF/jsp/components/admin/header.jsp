@@ -1,3 +1,4 @@
+<%@page import="edu.vinaenter.models.User"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <div class="header">
@@ -16,6 +17,9 @@
 					<div class="col-lg-12"></div>
 				</div>
 			</div>
+			<%
+				User u =(User) session.getAttribute("user");
+			%>
 			<div class="col-md-2">
 				<div class="navbar navbar-inverse" role="banner">
 					<nav
@@ -23,7 +27,7 @@
 						role="navigation">
 						<ul class="nav navbar-nav">
 							<li class="dropdown"><a href="#" class="dropdown-toggle"
-								data-toggle="dropdown">My Account <b class="caret"></b></a>
+								data-toggle="dropdown"><%= u.getFullname()%> <b class="caret"></b></a>
 								<ul class="dropdown-menu animated fadeInUp">
 									<li><a href="profile.html">Profile</a></li>
 									<li><a href="${pageContext.request.contextPath }/auth/logout">Logout</a></li>

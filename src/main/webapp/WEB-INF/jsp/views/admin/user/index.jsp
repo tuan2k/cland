@@ -1,3 +1,4 @@
+<%@page import="edu.vinaenter.models.User"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@include file="/WEB-INF/jsp/components/taglib.jsp"%>
@@ -17,18 +18,22 @@
 		</div>
 		<hr>
 		<div class="row">
+			<c:if test="${sessionScope.user.role_id == 1 }">
 			<div class="col-md-8">
 				<a href="add" class="btn btn-success"><span
 					class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;Thêm</a>
 
 			</div>
+			</c:if>
 			<div class="col-md-4">
+				<form action="${pageContext.request.contextPath}/admin/user/search">
 				<div class="input-group form">
-					<input type="text" class="form-control" placeholder="Search...">
+					<input type="text" class="form-control" placeholder="Search..." name="search">
 					<span class="input-group-btn">
-						<button class="btn btn-primary" type="button">Search</button>
+						<input class="btn btn-primary" type="submit" value="Search"/>
 					</span>
 				</div>
+				</form>
 			</div>
 		</div>
 
@@ -51,12 +56,20 @@
 									<tr class="odd gradeX">
 										<td>${user.id }</td>
 										<td>${user.username }</td>
+										<c:if test="${ user.id == sessionScope.user.id  && user.role_id != 1}">
+										<td class="center text-center"><a
+											href="edit/${ user.id }" title="" class="btn btn-primary">
+												<span class="glyphicon glyphicon-pencil "></span> Sửa
+										</a></td>
+										</c:if>
+										<c:if test="${ sessionScope.user.role_id == 1 }">
 										<td class="center text-center"><a
 											href="edit/${ user.id }" title="" class="btn btn-primary">
 												<span class="glyphicon glyphicon-pencil "></span> Sửa
 										</a> <a href="delete/${ user.id }" title="" class="btn btn-danger">
 												<span class="glyphicon glyphicon-trash"></span> Xóa
 										</a></td>
+										</c:if>
 									</tr>
 								</c:forEach>
 

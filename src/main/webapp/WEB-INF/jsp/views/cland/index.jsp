@@ -3,17 +3,17 @@
 <%@include file="/WEB-INF/jsp/components/taglib.jsp"%>
 <div class="clearfix slider">
 	<ul class="pgwSlider">
-		<li><img src="${ contentpath}/images/thumbs/megamind_07.jpg"
+		<li><img src="${pageContext.request.contextPath}/resources/cland/images/thumbs/megamind_07.jpg"
 			alt="Paris, France" data-description="Eiffel Tower and Champ de Mars"
-			data-large-src="${ contentpath}/images/slides/megamind_07.jpg" /></li>
-		<li><img src="${ contentpath}/images/thumbs/wall-e.jpg"
+			data-large-src="${pageContext.request.contextPath}/resources/cland/images/slides/megamind_07.jpg" /></li>
+		<li><img src="${pageContext.request.contextPath}/resources/cland/images/thumbs/wall-e.jpg"
 			alt="MontrÃ©al, QC, Canada"
-			data-large-src="${ contentpath}/images/slides/wall-e.jpg"
+			data-large-src="${pageContext.request.contextPath}/resources/cland/images/slides/wall-e.jpg"
 			data-description="Eiffel Tower and Champ de Mars" /></li>
 		<li><img
-			src="${ contentpath}/images/thumbs/up-official-trailer-fake.jpg"
+			src="${pageContext.request.contextPath}/resources/cland/images/thumbs/up-official-trailer-fake.jpg"
 			alt="Shanghai, China"
-			data-large-src="${ contentpath}/images/slides/up-official-trailer-fake.jpg"
+			data-large-src="${pageContext.request.contextPath}/resources/cland/images/slides/up-official-trailer-fake.jpg"
 			data-description="Shanghai ,chaina"></li>
 
 
@@ -47,7 +47,7 @@
 							</p>
 						</div>
 						<div class="clearfix post_excerpt">
-							<img src="${ contentpath}/images/thumb.png" alt="" />
+							<img src="${pageContext.request.contextPath}/resources/cland/images/thumb.png" alt="" />
 							<p>${land.description }</p>
 						</div>
 						<a href="${pageContext.request.contextPath }/single/${land.lid}">Xem
@@ -67,6 +67,62 @@
 </div>
 
 <div class="pagination">
+	<c:if test="${not empty search}">
+	<c:if test="${not empty totalPage}">
+		<nav class="text-center" aria-label="...">
+			<ul>
+				<c:set value="0" var="k"></c:set>
+				<c:forEach begin="1" end="${totalPage}" var="i">
+					<c:if test="${ k == 0}">
+						<c:choose>
+							<c:when test="${currentPage > 1 }">
+								<li><a
+									href="${pageContext.request.contextPath }/${currentPage-1}/search?search=${search}"
+									aria-label="Previous"><span aria-hidden="true">«</span></a></li>
+							</c:when>
+							<c:otherwise>
+								<li><a
+									href="${pageContext.request.contextPath }/1/search?search=${search}"
+									aria-label="Previous"><span aria-hidden="true">«</span></a></li>
+							</c:otherwise>
+						</c:choose>
+						<c:set value="1" var="k"></c:set>
+					</c:if>
+					<li class="<c:if test="${ i == currentPage }">active</c:if>">
+					<c:if test="${i != currentPage }">
+					<a
+						href="${pageContext.request.contextPath }/${i}/search?search=${search}">${i }
+					</a>
+					</c:if>
+					<c:if test="${i == currentPage }">
+					<a
+						href="${pageContext.request.contextPath }/${i}//search?search=${search}">${i }
+							<span class="sr-only">(current)</span>
+					</a>
+					</c:if>
+					</li>
+					<c:if test="${ i == totalPage}">
+						<c:choose>
+							<c:when test="${currentPage < totalPage }">
+								<li><a
+									href="${pageContext.request.contextPath }/${currentPage+1}/search?search=${search}"
+									aria-label="Next"><span aria-hidden="true">»</span></a></li>
+							</c:when>
+							<c:otherwise>
+								<li><a
+									href="${pageContext.request.contextPath }/${totalPage}/search?search=${search}"
+									aria-label="Next"><span aria-hidden="true">»</span></a></li>
+							</c:otherwise>
+						</c:choose>
+					</c:if>
+				</c:forEach>
+
+			</ul>
+		</nav>
+	</c:if>
+	</c:if>
+	
+	<c:if test="${empty search}">
 	<c:if test="${not empty totalPage}">
 		<nav class="text-center" aria-label="...">
 			<ul>
@@ -118,5 +174,6 @@
 
 			</ul>
 		</nav>
+	</c:if>
 	</c:if>
 </div>

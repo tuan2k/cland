@@ -3,6 +3,8 @@ package edu.vinaenter.services;
 import java.text.ParseException;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -46,4 +48,21 @@ public class CategoryService implements ICRUDService<Category> {
 	public Category findOne(Category t) {
 		return catDAO.findOne(t);
 	}
+
+	public List<Category> getBySearch(String search) {
+		return catDAO.getBySearch(search);
+	}
+
+	public Category validateUpdate(@Valid Category cat) {
+		return catDAO.validateUpdate(cat);
+	}
+
+	public Category getByName(String cname) {
+		return catDAO.getByName(cname);
+	}
+	
+	public int totalCategoryById(int cid) {
+		return catDAO.totalCategoryById(cid);
+	}
+	
 }

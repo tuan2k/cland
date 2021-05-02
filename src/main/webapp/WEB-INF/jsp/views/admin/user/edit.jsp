@@ -43,7 +43,7 @@
 											</div>
 										</div>
 										<div class="col-sm-12">
-											<input type="submit" value="Thêm" class="btn btn-success" />
+											<input type="submit" value="Sửa" class="btn btn-success" />
 											<input type="reset" value="Nhập lại" class="btn btn-default" />
 										</div>
 

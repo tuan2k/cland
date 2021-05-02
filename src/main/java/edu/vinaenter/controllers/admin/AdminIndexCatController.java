@@ -1,5 +1,6 @@
 package edu.vinaenter.controllers.admin;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -69,7 +70,7 @@ public class AdminIndexCatController {
 		}
 		Category c = null;
 		int save = 0;
-		c = catService.findOne(cat);
+		c = catService.validateUpdate(cat);
 		if (c == null) {
 			save = catService.edit(cat);
 		}
@@ -78,7 +79,7 @@ public class AdminIndexCatController {
 			return "redirect:/admin/cat/index";
 		}
 		msg.addFlashAttribute("msg",messageSource.getMessage("msg.exist", null, Locale.ENGLISH));
-		int cid = c.getCid();
+		int cid = cat.getCid();
 		return "redirect:/admin/cat/edit/"+cid;
 	}
 
@@ -119,6 +120,19 @@ public class AdminIndexCatController {
 			msg.addFlashAttribute("msg",messageSource.getMessage("msg.success", null, Locale.ENGLISH));
 			return "redirect:/admin/cat/index";
 		}
+		return "admin.catindex";
+	}
+	
+	@GetMapping("/search")
+	public String index(Model model,@RequestParam("search") String search, RedirectAttributes msg) {
+		List<Category> listcats = new ArrayList<Category>();
+		listcats = catService.getBySearch(search);
+		if (listcats.size() > 0) {
+			msg.addFlashAttribute("msg",messageSource.getMessage("msg.success", null, Locale.ENGLISH));
+			model.addAttribute("listcats", listcats);
+			return "admin.catindex";
+		}
+		msg.addFlashAttribute("msg",messageSource.getMessage("msg.empty", null, Locale.ENGLISH));
 		return "admin.catindex";
 	}
 

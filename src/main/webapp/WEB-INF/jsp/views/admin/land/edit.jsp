@@ -23,7 +23,7 @@
 
 					<div class="row">
 						<div class="col-sm-6">
-							<input name="id" type="hidden" value="${land.lid }" />
+							<input name="lid" type="hidden" value="${land.lid }" />
 							<div class="form-group">
 								<label for="name">Tên lô đất</label>
 								 <input type="text" class="form-control" name="lname" value="${land.lname }">
@@ -45,7 +45,7 @@
 							
 							<div class="form-group">
 								<label>Thêm hình ảnh</label>
-								<input type="file" class="btn btn-default" name="picture">
+								<input type="file" class="btn btn-default" name="image">
 								<p class="help-block">
 									<em>Định dạng: jpg, png, jpeg,...</em>
 								</p>

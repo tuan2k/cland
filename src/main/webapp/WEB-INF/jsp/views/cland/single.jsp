@@ -25,8 +25,8 @@
 			Bất động sản liên quan <i class="fa fa-thumbs-o-up"></i>
 		</h2>
 		<c:choose>
-		<c:when test="${not empty listlands }">
-		<c:forEach items="${listlands }" var="lands">
+		<c:when test="${not empty listland }">
+		<c:forEach items="${listland }" var="lands">
 		<c:if test="${land.lid != lands.lid && land.category.cid == lands.category.cid}">
 		<h2><a href="${pageContext.request.contextPath }/single/${lands.lid}">${lands.lname }</a></h2>
 		</c:if>

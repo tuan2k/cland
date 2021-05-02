@@ -5,6 +5,8 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -29,6 +31,11 @@ public class CatDAO {
 		String sql = "select * from categories where cid = ?";
 		return jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(Category.class), new Object[] { id });// id
 																													
+	}
+	
+	public int totalCategoryById(int cid) {
+		String sql = "select count(*) as count from lands l  INNER JOIN categories c on l.cid= c.cid where l.cid=?";
+		return jdbcTemplate.queryForObject(sql, Integer.class,cid);
 	}
 
 	public int save(Category category) {
@@ -62,6 +69,34 @@ public class CatDAO {
 				return c;
 			}
 		},t.getCname());
+	}
+
+	public List<Category> getBySearch(String search) {
+		String sql = "SELECT * FROM categories where cname like '%"+search+"%'";
+		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Category.class));
+	}
+
+	public Category validateUpdate(@Valid Category cat) {
+		String sql = "select * from categories where cname =? and cid != ?";
+		return jdbcTemplate.query(sql, new ResultSetExtractor<Category>(){
+			@Override
+			public Category extractData(ResultSet rs) throws SQLException, DataAccessException {
+				// TODO Auto-generated method stub
+				Category c = new Category();
+				if(rs.next()) {
+					c.setCid(rs.getInt("cid"));
+					c.setCname(rs.getString("cname"));
+				}else {
+					c =  null;
+				}
+				return c;
+			}
+		},cat.getCname(),cat.getCid());
+	}
+
+	public Category getByName(String cname) {
+		String sql = "select * from categories where cname = ?";
+		return jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(Category.class), new Object[] { cname });
 	}
 
 }

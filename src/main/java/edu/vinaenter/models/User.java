@@ -27,6 +27,10 @@ public class User {
 	private String password;
 	
 	private String token;
+	
+	private int role_id;
+	
+	private int enabled;
 
 	public User(int id, String username, String fullname, String password, String token) {
 		super();
