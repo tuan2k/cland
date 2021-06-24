@@ -6,3 +6,4 @@
 + upload hình ảnh
 + authentication, author
 + phân trang
+...
